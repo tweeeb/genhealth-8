@@ -44,9 +44,9 @@ function PatientList() {
         <div>
             <TopBar />
             <Sidebar />
-            <div id="patientList">
-                <h1>Patient List</h1>
-            </div>
+            <h1 id="patientList">
+                Patient List
+            </h1>
             <AddPatientButton />
             <PatientListContent />
         </div>
