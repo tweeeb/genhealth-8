@@ -9,5 +9,6 @@ logging:
       springframework:
         web: debug
 
-setting:
-  firUrl:"https://launch.smarthealthit.org/v/r4/sim/...../fhir/"
+
+FHIRUrl: "https://launch.smarthealthit.org/v/r4/sim/WzQsIiIsIiIsIiIsMCwwLDAsIiIsIiIsIiIsIiIsIiIsIiIsIiIsMCwxXQ/fhir"
+DATACOUNT : 3000
