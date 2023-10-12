@@ -33,7 +33,7 @@ function Landing() {
               <div className="Landingsidebar">
                   <img src={avatar} alt="Doctor's Avatar" id="avatar" />
                   <ul>
-                      <li><Link to="/patientList" id="patientList">Patient List</Link></li>
+                      <li><Link to="/patientList" id="profile">Patient List</Link></li>
                       <li><Link to="/profile" id="profile">Profile</Link></li>
                       <li><Link to="/aboutUs" id="aboutUs">About Us</Link></li>
                   </ul>
