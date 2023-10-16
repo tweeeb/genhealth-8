@@ -1,68 +1,110 @@
-import React, { useState } from 'react';
-import './Filter.css';
-import Search from './images/search icon.png';
+import React, { useState, useEffect } from 'react';
+import Filter from './Filter';
+import './FindPatient.css';
 
-const Filter = ({ onFilterSubmit }) => {
-  const [dataName, setDataName] = useState('');
-  const [minDataValue, setMinDataValue] = useState('');
-  const [maxDataValue, setMaxDataValue] = useState('');
-  const [error, setError] = useState(null);
+function TopBar() {
+  return <div className="top-bar">DIGIHEALTH</div>;
+}
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setError(null); 
+const FindPatient = () => {
+  const [patientsData, setPatientsData] = useState([]);
+  const [allPatients, setAllPatients] = useState([]);
+  const [filteredPatients, setFilteredPatients] = useState([]);
+  const [showResults, setShowResults] = useState(false);
 
-    // 验证name 
-    if (!dataName.trim()) {
-        setError('Data name is required.');
-        return;
+  useEffect(() => {
+    const fetchPatientsData = async () => {
+      try {
+        const response = await fetch('http://localhost:18000/api/filter/getDataValue');
+        const data = await response.json();
+        setPatientsData(data);
+      } catch (error) {
+        console.error('Error fetching patients data:', error);
+      }
+    };
+
+    const fetchAllPatients = async () => {
+      try {
+        const response = await fetch('http://localhost:18000/api/patientData/get');
+        const data = await response.json();
+        setAllPatients(data);
+      } catch (error) {
+        console.error('Error fetching all patients:', error);
+      }
+    };
+
+    fetchPatientsData();
+    fetchAllPatients();
+  }, []);
+  
+  const handleFilterSubmit = async (dataNameInput, minDataValueInput, maxDataValueInput) => {
+    const matchedPatientIds = [];
+
+    const valuesArray = patientsData[dataNameInput]?.value;
+    if (valuesArray) {
+      for (const item of valuesArray) {
+        const value = item[0].value;
+        if (
+          (!minDataValueInput || value >= parseFloat(minDataValueInput)) &&
+          (!maxDataValueInput || value <= parseFloat(maxDataValueInput))
+        ) {
+          matchedPatientIds.push(item[1].split('/')[1]);
+        }
+      }
     }
 
-    // 验证最小值和最大值
-    if (minDataValue && (!/^\d*\.?\d+$/.test(minDataValue) || parseFloat(minDataValue) < 0)) {
-        setError('Min data value must be a non-negative number if provided.');
-        return;
-    }
-    if (maxDataValue && (!/^\d*\.?\d+$/.test(maxDataValue) || parseFloat(maxDataValue) < 0)) {
-        setError('Max data value must be a non-negative number if provided.');
-        return;
-    }
+    const matchedPatients = allPatients.filter(patient => 
+      matchedPatientIds.includes(patient.resource.id)
+    ).map(patient => {
+      const nameObj = patient.resource.name[0];
+      const birthDate = new Date(patient.resource.birthDate);
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - birthDate.getFullYear();
 
-    // 验证最小值是否小于最大值
-    if (minDataValue && maxDataValue && parseFloat(minDataValue) > parseFloat(maxDataValue)) {
-        setError('Min data value should not be greater than max data value.');
-        return;
-    }
-    
-    onFilterSubmit(dataName, minDataValue, maxDataValue);
+      return {
+        id: patient.resource.id,
+        name: `${nameObj.prefix[0]} ${nameObj.given[0]} ${nameObj.family}`,
+        age: age
+      };
+    });
+
+    setFilteredPatients(matchedPatients);
+    setShowResults(true);
+  };
+  
+  const renderPatientName = (patient) => {
+    return `${patient.name} (Age: ${patient.age})`;
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-container">
-      <input
-        type="text"
-        placeholder="Data Name"
-        value={dataName}
-        onChange={(e) => setDataName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Data Value (Min)"
-        value={minDataValue}
-        onChange={(e) => setMinDataValue(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Data Value (Max)"
-        value={maxDataValue}
-        onChange={(e) => setMaxDataValue(e.target.value)}
-      />
-      <button type="submit" className="search-button">
-        <img src={Search} alt="Search" className="search-icon" />
-      </button>
-      {error && <div className="error">{error}</div>}
-    </form>
+    <div className="find-patient-container">
+      <TopBar />
+
+      {showResults ? (
+        <>
+          <h2 id="patientAwait">Please choose the patient you are looking for:</h2>
+          <ul className="patient-list">
+            {filteredPatients.map(patient => (
+              <li key={patient.id}>
+                <input type="radio" name="selectedPatient" id={`patient-${patient.id}`} />
+                <label htmlFor={`patient-${patient.id}`}>
+                  {renderPatientName(patient)}
+                </label>
+                <span>ID: {patient.id}</span>
+              </li>
+            ))}
+          </ul>
+          <button className="patientTreatment" onClick={() => window.location.href='/Treatment'}>NEXT</button>
+        </>
+      ) : (
+        <>
+          <h1 id="findPatientHeader">Find Patient</h1>
+          <Filter onFilterSubmit={handleFilterSubmit} />
+          <a className="patient-list"></a>
+        </>
+      )}
+    </div>
   );
 };
 
-export default Filter;
+export default FindPatient;
