@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from "react";
-import { Link , useParams} from 'react-router-dom';
+import React, {useEffect} from "react";
+import {Link, useParams} from 'react-router-dom';
 import CollapsibleTable from "./subcomponents/CollapsibleTable";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import "./PatientRecord.css";
+import IconButton from '@mui/material/IconButton';
 
 function TopBar() {
     return <div className="top-bar">DIGIHEALTH</div>;
@@ -40,6 +42,7 @@ function ProcessPatient(data) {
 function PatientRecord() {
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
+    
     let patientName;
     let patientSex;
     let patientAge;
@@ -62,16 +65,23 @@ function PatientRecord() {
         <div>
             <TopBar />
             <div id="data">
-                <div id="patient-details">
+                <div>
                     <h1><span className="patientHeader" id="pname">{patientName}</span></h1>
                     <h1><span className="patientDetail" id="pID">ID: {patientID}</span></h1>
                     <h1><span className="patientDetail" id="pSex">Gender: {patientSex}</span></h1>
                     <h1><span className="patientDetail" id= "pBirth">Birth Date: {patientAge}</span></h1>
                 </div>
-                <div id="treatment-history">
-                    <h1><span className="patientHeader">Treatment Record</span></h1>
-                    <CollapsibleTable> </CollapsibleTable>
+                <div>
+                    <div id="s1">
+                        <h1><span className="patientHeader">Treatment Record</span></h1>
+                    </div>
+                    <div id="s2">
+                        <IconButton id="n" component={Link} to={`/patientTreatment/:${patientID}'`}>
+                            <AddCircleOutlineIcon></AddCircleOutlineIcon>
+                        </IconButton>
+                    </div>
                 </div>
+                <CollapsibleTable> </CollapsibleTable>
             </div>
 
         </div>

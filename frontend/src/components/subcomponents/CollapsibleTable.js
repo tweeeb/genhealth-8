@@ -80,9 +80,22 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="body1" gutterBottom component="div">
-                Put details in here
-              </Typography>
+              {row.details.map((detailsRow => (
+                <div>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Timegap : {detailsRow.timegap}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Symptoms : {detailsRow.symptoms}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Services : {detailsRow.services}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Drugs: {detailsRow.drugs}
+                  </Typography>
+                </div>
+              )))}
             </Box>
           </Collapse>
         </TableCell>
@@ -125,7 +138,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.date} row={row} />
           ))}
         </TableBody>
       </Table>

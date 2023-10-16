@@ -51,6 +51,16 @@ body::before {
     width: 80%;
 }
 
+
+#s1 {
+    float: left;
+}
+
+#s2 {
+    float: right;
+    padding-top: 20px;
+}
+
 .patientHeader {
     font-size: 100%;
 }

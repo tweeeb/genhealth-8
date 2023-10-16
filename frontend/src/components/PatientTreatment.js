@@ -36,3 +36,5 @@ function PatientTreatment() {
     })
 
 }
+
+export default PatientTreatment
