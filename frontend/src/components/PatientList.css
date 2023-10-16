@@ -45,7 +45,7 @@ body::before {
 
 #patientList {
     position: absolute;
-    font-size: 150%;
+    font-size: 300%;
     color: rgb(54, 100, 184);
     font-weight: 100;
     top: 10%;
