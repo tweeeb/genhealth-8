@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import { Link , useParams} from 'react-router-dom';
-// import CollapsibleTable from "./subcomponents/CollapseTable";
 import "./PatientTreatment.css";
 
 function TopBar() {
@@ -16,8 +15,12 @@ function seperateData(data) {
 }
 
 function PatientTreatment() {
+
+    const {id} = useParams()
+    let patientID = id.substring(1 , id.length);
+   
     let data = {
-        "patientId": "d64b37f5-d3b5-4c25-abe8-23ebe8f5a04e"
+        "patientId": patientID
     }
     
     useEffect (() => {
@@ -33,7 +36,14 @@ function PatientTreatment() {
             seperateData(patientJSON.predictions)
         };
         patientData();
-    })
+    });
+
+    return (
+        <div>
+            <TopBar />
+
+        </div>
+    )
 
 }
 

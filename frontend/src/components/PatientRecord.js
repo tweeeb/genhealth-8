@@ -38,19 +38,23 @@ function ProcessPatient(data) {
     return [name, sex, birth]
 }
 
+function PatientHistory(id) {
+    useEffect(() => {
+        const fetchHistory = async() => {
+            const response = await fetch(
+                'localhost:18000/api/save/get-treatment/' + id
+            );
+            const past = await response.body();
+        };
+        fetchHistory();
+    });
+}
 
-function PatientRecord() {
-    const {id} = useParams()
-    let patientID = id.substring(1 , id.length);
-    
-    let patientName;
-    let patientSex;
-    let patientAge;
-
+function PatientInfo(id) {
     useEffect(() => {
         const fetchPatient = async() => {
             const response = await fetch(
-                'https://launch.smarthealthit.org/v/r4/sim/WzQsIiIsIiIsIiIsMCwwLDAsIiIsIiIsIiIsIiIsIiIsIiIsIiIsMCwxXQ/fhir/Patient/' + patientID
+                'https://launch.smarthealthit.org/v/r4/sim/WzQsIiIsIiIsIiIsMCwwLDAsIiIsIiIsIiIsIiIsIiIsIiIsIiIsMCwxXQ/fhir/Patient/' + id
             );
             const patient = await response.json();
             let arr = ProcessPatient(patient);
@@ -60,6 +64,17 @@ function PatientRecord() {
         };
         fetchPatient();
     }, []);
+}
+
+function PatientRecord() {
+    const {id} = useParams()
+    let patientID = id.substring(1 , id.length);
+    
+    let patientName;
+    let patientSex;
+    let patientAge;
+
+    PatientInfo(patientID);
 
     return (
         <div>

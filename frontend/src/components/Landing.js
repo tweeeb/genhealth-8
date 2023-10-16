@@ -5,7 +5,7 @@ import "./Landing.css";
 import avatar from './images/Avatar.gif';
 
 function Landing() {
-  const [doctorName, setDoctorName] = useState('XXX');
+  const [doctorName, setDoctorName] = useState('Watson');
   const [LandingsidebarVisible, setLandingSidebarVisible] = useState(true);
   const [greetingPosition, setGreetingPosition] = useState('45%');
 
@@ -48,11 +48,8 @@ function Landing() {
           )}
 
           <div id="greeting" style={{ left: greetingPosition }}>
-              <h1>Hi, Doctor <span id="doctorName">{doctorName}</span>,</h1>
+              <h1>Hi Doctor <span id="doctorName">{doctorName}</span>,</h1>
               <h1>Welcome to DIGIHEALTH</h1>
-
-              <input type="text" id="nameInput" placeholder="Enter Doctor's Name" onChange={(e) => updateName(e.target.value)} />
-              <button onClick={() => updateName(document.getElementById('nameInput').value)}>Update Name</button>
           </div>
 
           <button className="newTreatmentButton" onClick={() => window.location.href='newTreatment.html'}>Start New Treatment</button>
