@@ -1,0 +1,13 @@
+server:
+  port: 18000
+logging:
+  file:
+    name: temp/genhealthApi.log
+  level:
+    root: info
+    org:
+      springframework:
+        web: debug
+
+setting:
+  firUrl:"https://launch.smarthealthit.org/v/r4/sim/...../fhir/"
