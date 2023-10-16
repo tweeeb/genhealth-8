@@ -11,7 +11,7 @@ logging:
 spring:
   data:
     mongodb:
-      uri: "mongodb+srv://<user name>:<password>@cluster0.m5swobe.mongodb.net/comp3820?retryWrites=true&w=majority"
+      uri: "mongodb+srv://comp3820:mFAR7f6UGzXFZUK0@cluster0.m5swobe.mongodb.net/comp3820?retryWrites=true&w=majority"
 
 
 
