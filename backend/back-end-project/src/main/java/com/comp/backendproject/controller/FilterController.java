@@ -2,6 +2,7 @@ package com.comp.backendproject.controller;
 
 
 import com.comp.backendproject.service.FilterService;
+import com.comp.backendproject.service.GenhealthApiService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ public class FilterController {
 
     @Resource
     FilterService filterService;
-
 
     @GetMapping("/getDataValue")
     public Object getDataValue() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Filter.css';
-import Search from './images/search icon.png';
+import Search from './images/search icon.png'
 
 const Filter = ({ onFilterSubmit }) => {
   const [dataName, setDataName] = useState('');
@@ -41,7 +41,7 @@ const Filter = ({ onFilterSubmit }) => {
     <form onSubmit={handleSubmit} className="search-container">
       <input
         type="text"
-        placeholder="Data Name"
+        placeholder="Family/Given Name"
         value={dataName}
         onChange={(e) => setDataName(e.target.value)}
       />

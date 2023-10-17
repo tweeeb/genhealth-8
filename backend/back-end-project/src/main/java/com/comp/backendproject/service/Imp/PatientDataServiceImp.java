@@ -1,6 +1,8 @@
 package com.comp.backendproject.service.Imp;
 
+import com.comp.backendproject.constant.DataSource;
 import com.comp.backendproject.entity.Patient;
+import com.comp.backendproject.entity.PatientEntity;
 import com.comp.backendproject.entity.PatientRespoen;
 import com.comp.backendproject.service.PatientDataService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +44,13 @@ public class PatientDataServiceImp implements PatientDataService {
 
 
         return responseBody.getEntry();
+    }
+
+    @Override
+    public Object getOnePatientData(String id) {
+        String url = DataSource.FHIR_URL + "/Patient/" + id;
+        ResponseEntity<PatientEntity> responseEntity = restTemplate.getForEntity(url, PatientEntity.class);
+        PatientEntity responseBody = responseEntity.getBody();
+        return responseBody;
     }
 }

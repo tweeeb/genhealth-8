@@ -1,5 +1,3 @@
-// src/components/FindPatient.js
-
 import React, { useState, useEffect } from 'react';
 import Filter from './Filter';
 import './FindPatient.css';
