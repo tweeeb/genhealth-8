@@ -62,6 +62,7 @@ const Filter = ({ onFilterSubmit }) => {
       </button>
       {error && <div className="error">{error}</div>}
     </form>
+    
   );
 };
 
