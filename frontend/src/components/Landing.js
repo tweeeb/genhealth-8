@@ -9,13 +9,7 @@ function Landing() {
   const [LandingsidebarVisible, setLandingSidebarVisible] = useState(true);
   const [greetingPosition, setGreetingPosition] = useState('45%');
 
-  const updateName = (name) => {
-      const newName = name.trim();
-      if (newName) {
-          setDoctorName(newName.charAt(0).toUpperCase() + newName.slice(1));
-      }
-  };
-
+  /* Side bar */
   const toggleLandingSidebar = () => {
       setLandingSidebarVisible(false);
       setGreetingPosition('30%');
@@ -33,7 +27,7 @@ function Landing() {
               <div className="Landingsidebar">
                   <img src={avatar} alt="Doctor's Avatar" id="avatar" />
                   <ul>
-                      <li><Link to="/patientList" id="profile">Patient List</Link></li>
+                      <li><Link to="/patientList" id="LandingPatientList">Patient List</Link></li>
                       <li><Link to="/profile" id="profile">Profile</Link></li>
                       <li><Link to="/aboutUs" id="aboutUs">About Us</Link></li>
                   </ul>
@@ -51,8 +45,7 @@ function Landing() {
               <h1>Hi Doctor <span id="doctorName">{doctorName}</span>,</h1>
               <h1>Welcome to DIGIHEALTH</h1>
           </div>
-
-          <button className="newTreatmentButton" onClick={() => window.location.href='newTreatment.html'}>Start New Treatment</button>
+          <button className="newTreatmentButton" onClick={() => window.location.href='/FindPatient'}>Start New Treatment</button>
 
           <div id="version">
               <p>Version 1.0</p>

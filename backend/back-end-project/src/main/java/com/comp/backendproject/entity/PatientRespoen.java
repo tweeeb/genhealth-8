@@ -23,17 +23,6 @@ class PatientResource {
 
 
 }
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-class PatientEntity{
-    private String id;
-
-    private List<PatienName> name;
-
-    private Date birthDate;
-
-    private String gender;
-}
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
