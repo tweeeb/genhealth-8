@@ -1,11 +1,11 @@
-// src/components/Filter.js
 import React, { useState } from 'react';
 import './Filter.css';
 import Search from './images/search icon.png'
 
 const Filter = ({ onFilterSubmit }) => {
   const [dataName, setDataName] = useState('');
-  const [dataValue, setDataValue] = useState('');
+  const [minDataValue, setMinDataValue] = useState('');
+  const [maxDataValue, setMaxDataValue] = useState('');
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
@@ -18,13 +18,23 @@ const Filter = ({ onFilterSubmit }) => {
         return;
     }
 
-    // If dataValue is provided, validate it
-    if (dataValue && (!/^\d+$/.test(dataValue) || parseInt(dataValue, 10) < 0)) {
-        setError('Data value must be a non-negative integer if provided.');
+    // 验证最小值和最大值
+    if (minDataValue && (!/^\d*\.?\d+$/.test(minDataValue) || parseFloat(minDataValue) < 0)) {
+        setError('Min data value must be a non-negative number if provided.');
+        return;
+    }
+    if (maxDataValue && (!/^\d*\.?\d+$/.test(maxDataValue) || parseFloat(maxDataValue) < 0)) {
+        setError('Max data value must be a non-negative number if provided.');
+        return;
+    }
+
+    // 验证最小值是否小于最大值
+    if (minDataValue && maxDataValue && parseFloat(minDataValue) > parseFloat(maxDataValue)) {
+        setError('Min data value should not be greater than max data value.');
         return;
     }
     
-    onFilterSubmit(dataName, dataValue);
+    onFilterSubmit(dataName, minDataValue, maxDataValue);
   };
 
   return (
@@ -37,15 +47,22 @@ const Filter = ({ onFilterSubmit }) => {
       />
       <input
         type="text"
-        placeholder="Data Value (Optional)"
-        value={dataValue}
-        onChange={(e) => setDataValue(e.target.value)}
+        placeholder="Data Value (Min)"
+        value={minDataValue}
+        onChange={(e) => setMinDataValue(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Data Value (Max)"
+        value={maxDataValue}
+        onChange={(e) => setMaxDataValue(e.target.value)}
       />
       <button type="submit" className="search-button">
         <img src={Search} alt="Search" className="search-icon" />
       </button>
       {error && <div className="error">{error}</div>}
     </form>
+    
   );
 };
 

@@ -134,36 +134,36 @@ body::before {
     background-color: #5277ef; 
 }
 
-.patient-list {
-    width: 840px; 
-    border: 1px solid #ddd;
-    margin-left: 130px;
-    margin-top: -150px;
-
+.patient-list-content {
+    padding: 20px; 
+    width: 120%; 
+    box-sizing: border-box; 
+    overflow: auto; 
+    background-color: rgba(244, 244, 244, 0.8);
+    border: 1px solid #c0c0c0; 
+    border-radius: 5px; 
+    margin-top: 20px; 
+    cursor: default;
 }
 
-.patient-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.patient-item:last-child {
-    border-bottom: none;
-}
-
-.patient-name {
-    font-size: 16px;
+.patient-list-content h2 {
+    font-size: 24px;
     color: #333;
+    margin-top: 0;
+    cursor: default; 
+    border-bottom: 1px solid #e0e0e0; 
+    padding-bottom: 10px;
 }
 
-.patient-details {
-    display: flex;
-    gap: 10px; /* 控制ID和年龄之间的间距 */
-}
-
-.patient-id, .patient-age {
-    font-size: 14px;
+.patient-list-content p {
+    font-size: 16px;
     color: #666;
+    margin: 10px 0;
+    cursor: default;
 }
+
+.patient-list-content h2:hover,
+.patient-list-content p:hover {
+    background-color: rgba(220, 220, 220, 0.5);
+}
+
