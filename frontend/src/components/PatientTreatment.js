@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { Link , useParams} from 'react-router-dom';
 import "./PatientTreatment.css";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 function TopBar() {
     return <div className="top-bar">DIGIHEALTH</div>;
@@ -62,6 +65,9 @@ function PatientTreatment() {
             <TopBar />
             <div id="data">
                 <h1><span className="title" id="title"> Here are the generated treatments for </span></h1>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox defaultChecked />} label="Select All" />
+                    </FormGroup>
             </div>
 
         </div>
