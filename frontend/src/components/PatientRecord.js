@@ -91,7 +91,7 @@ function PatientRecord() {
                         <h1><span className="patientHeader">Treatment Record</span></h1>
                     </div>
                     <div id="s2">
-                        <IconButton id="n" component={Link} to={`/patientTreatment/:${patientID}'`}>
+                        <IconButton id="n" component={Link} to={`/patientTreatment/:${patientID}`}>
                             <AddCircleOutlineIcon></AddCircleOutlineIcon>
                         </IconButton>
                     </div>
