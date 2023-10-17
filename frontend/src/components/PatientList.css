@@ -1,110 +1,169 @@
-// src/components/PatientList.js
+@import url('https://use.typekit.net/qhw2oit.css');
 
-import React, { useState, useEffect } from 'react';
-import './PatientList.css';
-import Search from './images/search icon.png'
-
-function TopBar() {
-    return <div className="top-bar">DIGIHEALTH</div>;
+body {
+    position: relative;
+    font-family: "argumentum",sans-serif;
+    margin: 0; /* Remove default body margin */
+    height: 100vh; /* Set body to full viewport height */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align elements vertically */
+    justify-content: center; 
+    align-items: center;
 }
 
-function Sidebar() {
-    return (
-        <div className="sidebar">
-            <div className="search-box">
-                <input type="text" className="search-input" placeholder="Search Patient..." />
-                <button type="submit" className="search-btn">
-                    <img className="search-icon" src={Search} alt="🔍" />
-                </button>
-            </div>
-        </div>
-    );
+body::before {
+    content: ""; 
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5; /* 淡化背景 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; 
 }
 
-const PatientListContent = () => {
-  const [patients, setPatients] = useState([]);
 
-  useEffect(() => {
-    async function fetchAllPatients() {
-      try {
-        const response = await fetch('http://localhost:18000/api/save/get-all-patient');
-        const patientIds = await response.json();
-        const allPatients = await Promise.all(patientIds.map(({ patientId }) => fetchOnePatient(patientId)));
-        setPatients(allPatients);
-      } catch (error) {
-        console.error('Error fetching all patients:', error);
-      }
-    }
-
-    async function fetchOnePatient(id) {
-      try {
-        const response = await fetch(`http://localhost:18000/api/patientData/get-one-patient/${id}`);
-        if (response.ok) {
-          return await response.json();
-        } else {
-          console.error(`Error fetching patient with ID ${id}:`, await response.text());
-          return null;
-        }
-      } catch (error) {
-        console.error(`Error fetching patient with ID ${id}:`, error);
-        return null;
-      }
-    }
-
-    fetchAllPatients();
-  }, []);
-
-
-  const renderPatientName = (patient) => {
-    const fullNames = patient.name.map(n => `${n.prefix[0]} ${n.given.join(' ')} ${n.family}`).join(', ');
-
-    const age = new Date().getFullYear() - new Date(patient.birthDate).getFullYear();
-
-    return (
-      <>
-          {fullNames}
-          <span className="spacing"></span>
-          Age: {age} yrs
-          <span className="spacing"></span>
-          {patient.dataName}: {patient.dataValue} {patient.unit}
-      </>
-    );
-  };
-
-  return (
-    <div className="patient-list-content">
-      {patients.map(patient => (
-        <div className="patient-item" key={patient.id}>
-            <div className="patient-info">
-                {renderPatientName(patient)}
-            </div>
-            <span>ID: {patient.id}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-
-  
-
-
-function AddPatientButton() {
-    return <button className="add-patient-button" onClick={() => window.location.href='/FindPatient'}>+</button>;
+.top-bar {
+    width: 100%;
+    height: 5%;  
+    background-color: rgb(055, 100, 184);  
+    display: flex;
+    justify-content: center;  /* Horizontally center the content */
+    align-items: center;  /* Vertically center the content */
+    font-size: 130%;  
+    color: rgb(229, 226, 226);  /* Text color */
+    font-weight: bold;
+    position: fixed;  /* Make it stick to the top */
+    top: 0;
+    left: 0;
+    z-index: 9911;  /* Ensure it's above other elements */
 }
 
-function PatientList() {
-    return (
-        <div>
-            <TopBar />
-            <Sidebar />
-            <h1 id="patientList">
-                Patient List
-            </h1>
-            <AddPatientButton />
-            <PatientListContent />
-        </div>
-    );
+#patientList {
+    position: absolute;
+    font-size: 300%;
+    color: rgb(54, 100, 184);
+    font-weight: 100;
+    top: 10%;
+    left: 20%; 
+    z-index: 91;
 }
 
-export default PatientList;
+.add-patient-button {
+    position: absolute;
+    font-size: 200%; 
+    color: rgb(54, 100, 184);
+    top: 25%;
+    right: 10%; 
+    z-index: 91; 
+    width: 50px;           
+    height: 50px;          
+    border-radius: 50%;  
+    background-color: white; 
+    border: 1px solid rgb(134, 134, 134);
+    display: flex;       
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-patient-button:hover {
+    transform: scale(1.2);
+}
+
+
+.sidebar {
+    width: 15%;  
+    height: 100vh;  
+    position: fixed;  
+    top: 0;
+    left: 0;
+    background-color: rgba(244, 244, 244, 0.5); 
+    overflow-y: auto; 
+    border-right: 2px solid #c0c0c0;
+    display: flex;  
+    align-items: center;
+    flex-direction: column;
+}
+
+.search-box {
+    margin-top: 40%;
+    display: flex;
+    border: 1px solid #439eff;
+    width: 180px;
+    height: 25px;
+
+
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 5px;
+    outline: none;
+    width: 150px;
+    box-sizing: border-box;
+    border: none;
+    border-right: 1px solid #439eff;
+}
+
+.search-icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle; 
+    opacity: 0.5;
+}
+
+.search-btn {
+    background-color: white; 
+    border: none;
+    width: 30px; 
+    height: 100%;
+    cursor: pointer; 
+    outline: none; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.search-btn:hover {
+    background-color: #5277ef; 
+}
+
+.patient-list-content {
+    padding: 20px; 
+    width: 120%; 
+    box-sizing: border-box; 
+    overflow: auto; 
+    background-color: rgba(244, 244, 244, 0.8);
+    border: 1px solid #c0c0c0; 
+    border-radius: 5px; 
+    margin-top: 20px; 
+    cursor: default;
+}
+
+.patient-list-content h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 0;
+    cursor: default; 
+    border-bottom: 1px solid #e0e0e0; 
+    padding-bottom: 10px;
+}
+
+.patient-list-content p {
+    font-size: 16px;
+    color: #666;
+    margin: 10px 0;
+    cursor: default;
+}
+
+.patient-list-content h2:hover,
+.patient-list-content p:hover {
+    background-color: rgba(220, 220, 220, 0.5);
+}
+
