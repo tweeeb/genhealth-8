@@ -3,10 +3,7 @@ package com.comp.backendproject.controller;
 
 import com.comp.backendproject.service.PatientDataService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -21,6 +18,12 @@ public class PatientDataController {
     @GetMapping("/get")
     public Object getPatientData() {
         return patientDataService.getPatientData();
+    }
+
+    @GetMapping("/get-one-patient/{id}")
+    public Object getOnePatientData(@PathVariable String id) {
+
+        return patientDataService.getOnePatientData(id);
     }
 
 }

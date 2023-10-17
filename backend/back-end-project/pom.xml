@@ -50,6 +50,20 @@
 				<artifactId>jackson-databind</artifactId>
 			</dependency>
 
+<!--		mogodb-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+<!--		&lt;!&ndash;		mogodb&ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.mongodb</groupId>-->
+<!--			<artifactId>mongodb-driver-sync</artifactId>-->
+<!--			<version>4.11.0</version>-->
+<!--		</dependency>-->
+
+
 		<!--	swagger  -->
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->
