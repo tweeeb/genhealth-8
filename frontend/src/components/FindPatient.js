@@ -1,11 +1,12 @@
 // src/components/FindPatient.js
 
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import Filter from './Filter';
 import './FindPatient.css';
 
 function TopBar() {
-  return <div className="top-bar">DIGIHEALTH</div>;
+  return <div className="top-bar" component={Link} to={`/`}>DIGIHEALTH</div>;
 }
 
 const FindPatient = () => {
@@ -188,7 +189,7 @@ const FindPatient = () => {
                       ))}
                   </div>
                   <button className="savePatientsButton" onClick={handleSavePatients}>SAVE</button>
-                  <button className="patientTreatment" onClick={() => window.location.href='/Treatment'}>NEXT</button>
+                  <button className="patientTreatment" onClick={() => window.location.href='/PatientList'}>NEXT</button>
               </>
           ) : (
               <>
