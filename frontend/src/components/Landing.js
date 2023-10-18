@@ -5,24 +5,7 @@ import "./Landing.css";
 import avatar from './images/Avatar.gif';
 
 function Landing() {
-    
-  /* Set doctor Name */
-  const [doctorName, setDoctorName] = useState('XXX');
-  const [inputValue, setInputValue] = useState('');
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value); // 更新输入框的值
-  };
-  const handleUpdateClick = () => {
-    updateName(inputValue); // 使用输入框的值来更新doctorName状态
-  };
-  const updateName = (name) => {
-      const newName = name.trim();
-      if (newName) {
-          setDoctorName(newName.charAt(0).toUpperCase() + newName.slice(1));
-      }
-  };
-
-  
+  const [doctorName, setDoctorName] = useState('Watson');
   const [LandingsidebarVisible, setLandingSidebarVisible] = useState(true);
   const [greetingPosition, setGreetingPosition] = useState('45%');
 
@@ -59,13 +42,9 @@ function Landing() {
           )}
 
           <div id="greeting" style={{ left: greetingPosition }}>
-              <h1>Hi, Doctor <span id="doctorName">{doctorName}</span>,</h1>
+              <h1>Hi Doctor <span id="doctorName">{doctorName}</span>,</h1>
               <h1>Welcome to DIGIHEALTH</h1>
-
-              <input type="text" id="nameInput" placeholder="Enter Doctor's Name" value={inputValue} onChange={handleInputChange} />
-              <button onClick={handleUpdateClick}>Update Name</button>
           </div>
-
           <button className="newTreatmentButton" onClick={() => window.location.href='/FindPatient'}>Start New Treatment</button>
 
           <div id="version">
