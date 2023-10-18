@@ -1,5 +1,6 @@
 package com.comp.backendproject.entity.observation;
 
+import com.comp.backendproject.entity.Encounter.Subject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -9,5 +10,8 @@ import lombok.Data;
 public class Resource {
     private Code code;
     private ValueQuantity valueQuantity;
+    private Subject subject;
+
+
 
 }
