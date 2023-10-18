@@ -4,6 +4,7 @@ import PatientList from './components/PatientList';
 import PatientRecord from './components/PatientRecord';
 import PatientTreatment from './components/PatientTreatment';
 import FindPatient from './components/FindPatient';
+import DiscardTreatment from './components/DiscardTreatment';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                <Route path="/patientRecord/:id" element={<PatientRecord/>} />
                <Route path="/patientTreatment/:id" element={<PatientTreatment/>} />
                <Route path="/FindPatient" element={<FindPatient />} />
+               <Route path="/discardTreatment/:id" element={<DiscardTreatment/>} />
             </Routes>
         </Router>
     );
