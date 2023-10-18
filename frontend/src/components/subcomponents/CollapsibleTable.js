@@ -22,26 +22,38 @@ function createData(date, display, details) {
   };
 }
 
-// return {
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//     price,
-//     history: [
-//       {
-//         date: '2020-01-05',
-//         customerId: '11091700',
-//         amount: 3,
-//       },
-//       {
-//         date: '2020-01-02',
-//         customerId: 'Anonymous',
-//         amount: 1,
-//       },
-//     ],
-//   };
+function createDetails1() {
+  return [
+    {
+      timegap: "03-06-month",
+      symptoms: ["Encounter for general adult medical examination without abnormal findings", ],
+      services: ["Prosthetic implant, not otherwise specified", "Radiologic examination, sacroiliac joints; less than 3 views"],
+      drugs: [],
+    }
+  ]
+}
+
+function createDetails2() {
+  return [
+    {
+      timegap: "00-01-month",
+      symptoms: ["Encounter for general adult medical examination without abnormal findings", "Neonatal jaundice from other and unspecified causes", "Adverse effects, not elsewhere classified", "Encounter for immunization"],
+      services: ["Anchor/screw for opposing bone-to-bone or soft tissue-to-bone (implantable)"],
+      drugs: ["[nitrostat]"],
+    }
+  ]
+}
+
+function createDetails3() {
+  return [
+    {
+      timegap: "00-01-month",
+      symptoms: ["Encounter for general examination without complaint, suspected or reported diagnosis", "Persons encountering health services in other circumstances"],
+      services: ["Anesthesia for all procedures on esophagus, thyroid, larynx, trachea and lymphatic system of neck; not otherwise specified, age 1 year or older"],
+      drugs: ["acetaminophen"],
+    }
+  ]
+}
 
 function Row(props) {
   const { row } = props;
@@ -62,39 +74,28 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.date}
         </TableCell>
-        <TableCell align="right">{row.display}</TableCell>
+        <TableCell align="left">{row.display}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.details.map((detailsRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              {row.details.map((detailsRow => (
+                <div>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Timegap : {detailsRow.timegap}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Symptoms : {detailsRow.symptoms}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Services : {detailsRow.services}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom component="div">
+                    Drugs: {detailsRow.drugs}
+                  </Typography>
+                </div>
+              )))}
             </Box>
           </Collapse>
         </TableCell>
@@ -105,28 +106,23 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
+    date: PropTypes.number.isRequired,
+    display: PropTypes.number.isRequired,
+    details: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        timegap: PropTypes.number.isRequired,
+        symptoms: PropTypes.string.isRequired,
+        services: PropTypes.string.isRequired,
+        drugs: PropTypes.string.isRequired,
       }),
     ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+  createData('16-10-2023', createDetails1()[0].symptoms[0], createDetails1()),
+  createData('10-7-2023', createDetails2()[0].symptoms[0], createDetails2()),
+  createData('23-5-2023', createDetails3()[0].symptoms[0], createDetails3())
 ];
 
 export default function CollapsibleTable() {
@@ -136,16 +132,13 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell align="left">Treatment</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.date} row={row} />
           ))}
         </TableBody>
       </Table>
