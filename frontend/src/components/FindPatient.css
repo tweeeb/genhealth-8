@@ -3,10 +3,10 @@
 body {
     position: relative;
     font-family: "argumentum",sans-serif;
-    margin: 0; /* Remove default body margin */
-    height: 100vh; /* Set body to full viewport height */
-    display: flex; /* Use flexbox for centering */
-    flex-direction: column; /* Align elements vertically */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
     justify-content: center; 
     align-items: center;
 }
@@ -47,8 +47,8 @@ body {
     padding: 0.8% 2%; 
     font-size: 200%;
     color: rgb(54, 100, 184);
-    bottom: 10%;
-    right: 10%;
+    bottom: 8%;
+    right: 4%;
     transition: 0.3s;  
 }
 
@@ -57,30 +57,92 @@ body {
     
 }
 
+.savePatientsButton {
+  position: absolute;
+    background-color: transparent; 
+    cursor: pointer;  
+    border: 2px solid rgb(214, 214, 214); 
+    border-radius: 10px;   
+    background-color: transparent;
+    padding: 0.8% 2%; 
+    font-size: 200%;
+    color: rgb(54, 100, 184);
+    bottom: 8%;
+    right: 15%;
+    transition: 0.3s;  
+}
+
+.savePatientsButton:hover {
+  background-color: rgba(214, 214, 214, 0.3);
+  
+}
 
 
+.patient-list-container {
+  margin: 30%;
+  width: 140%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
 
-.patient-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .patient-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .patient-list input[type="radio"] {
-    margin-right: 10px;
-  }
-  
-  .patient-list label {
-    flex-grow: 1;
-    color: #4A4A4A;
-  }
-  
-  .patient-list span {
-    color: #8A8A8A;
-    margin-left: auto;
-  }
+.select-all-container,
+.patient-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.select-all-container input[type="checkbox"],
+.patient-item input[type="checkbox"] {
+  appearance: none; 
+  border: 1px solid #4A4A4A;
+  border-radius: 50%; 
+  width: 20px; 
+  height: 20px;
+  margin-right: 10px;
+}
+
+.select-all-container input[type="checkbox"]:checked,
+.patient-item input[type="checkbox"]:checked {
+  background-color: #4A4A4A; 
+  position: relative;
+}
+
+.select-all-container input[type="checkbox"]:checked::after,
+.patient-item input[type="checkbox"]:checked::after {
+  content: ""; 
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 12px; 
+  height: 12px; 
+  background-color: #FFFFFF; 
+  border-radius: 50%; 
+}
+
+.select-all-container label,
+.patient-item label {
+  flex-grow: 1;
+  color: #4A4A4A;
+  font-size: 150%;
+}
+
+.patient-item span {
+  color: #8A8A8A;
+  margin-left: auto;
+  font-size: 150%;
+}
+
+
+.spacing {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+

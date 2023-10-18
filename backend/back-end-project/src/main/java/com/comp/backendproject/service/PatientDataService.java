@@ -9,4 +9,7 @@ public interface PatientDataService {
 
     @Resource
     Object getPatientData();
+
+    @Resource
+    Object getOnePatientData(String id);
 }

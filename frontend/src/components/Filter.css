@@ -1,21 +1,25 @@
 .search-container {
     display: flex;
+    position: relative;
     align-items: center;
-    width: 100%;
+    width: 130%;
     height: 8%;             
-    margin: 45% auto;
+    margin: 60%;
     border: 2px solid rgb(54, 100, 184); 
     border-radius: 5px;   
     background-color: rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;  
+    gap: 1%; 
+    padding: 1%;  
 }
 
-.search-container input {
+.search-container input, .search-container button {
     flex: 1;       
     font-size: 1.5em; 
     color: rgb(54, 100, 184);
     font-family: "argumentum",sans-serif;  
     padding: 1%;      
-    margin: 1%;               
+    margin: 0; 
     box-shadow: none;              
     background-color: transparent;  
     transition: background-color 0.3s;   
@@ -25,14 +29,12 @@
     background-color: rgba(150, 150, 150, 0.1);  
 }
 
-.search-container button {
-    background-color: transparent;                  
+.search-container button {              
     cursor: pointer;   
-    padding: 1%;     
-    margin: 1%;           
-    font-size: 1.8em;     
-    color: rgb(54, 100, 184);   
-    transition: background-color 0.3s;  
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex: 0;
 }
 
 .search-container button img {
@@ -50,9 +52,17 @@ form, input, button {
     box-shadow: none;
 }
 
+
+
 .error {
-    text-align: center;
-    margin-top: 10px;
-    color: red;
-    font-size: 0.9rem;
+    position: absolute;
+    top: 110%; 
+    left: 0;
+    background-color: #ff564a; 
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    font-family: "argumentum",sans-serif;  
 }
