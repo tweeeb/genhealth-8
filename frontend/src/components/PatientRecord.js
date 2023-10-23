@@ -6,7 +6,7 @@ import "./PatientRecord.css";
 import IconButton from '@mui/material/IconButton';
 
 function TopBar() {
-    return <div className="top-bar">DIGIHEALTH</div>;
+    return <div className="top-bar" onClick={() => window.location.href='/'}>DIGIHEALTH</div>;
 }
 
 function getAge(dateString) 

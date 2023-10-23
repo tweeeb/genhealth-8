@@ -54,23 +54,10 @@ body::before {
     color: rgb(54, 100, 184);
 }
 
-#treatment {
-    display: flex;
-    align-items: center;
-}
-
-#treatment-header {
+#discard-header {
     font-size: 200%;
     color: rgb(66, 66, 66);
     margin-right: 25px;
-}
-
-#treatment-select {
-    margin-left: auto;
-}
-
-#outlined-basic {
-    width: 80%;  
 }
 
 #fixed-button {
