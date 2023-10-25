@@ -5,35 +5,116 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import PropTypes from 'prop-types';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
-function TopBar() {
-    return <div className="top-bar" onClick={() => window.location.href='/'}>DIGIHEALTH</div>;
-}
-
-function Treatment(num, val) {
-    const [checked, setChecked] = React.useState(true);
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
-
+function TreatmentList(vals) {
     return (
-        <Box>
-            <div id="treatment">
-                <h1 id="treatment-header">
-                    Treatment {num}
-                </h1>
-                <Checkbox id="treatment-select" defaultChecked checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }}/>
-            </div>
-            <FormControl fullWidth>
-            <TextField id="outlined-basic" label="GenHealth Treatment" variant="outlined" multiline 
-            defaultValue={val}/>
-            </FormControl>
+        <Box sx={{ width: '100%', maxWidth: window.screen.width-20 , bgcolor: 'background.paper' }}>
+          <nav aria-label="main mailbox folders">
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Timegap" 
+                    secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: 'inline' }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {vals.timegap}
+                          </Typography>
+                        </React.Fragment>
+                      }
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Symptoms" 
+                    secondary={
+                        <React.Fragment>
+                          {vals.symptoms.map((symptom => (
+                            <Typography
+                            display=""
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {symptom}
+                          </Typography>
+                        )))
+                        }
+                        </React.Fragment>
+                      }
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Services" 
+                    secondary={
+                        <React.Fragment>
+                          {vals.services.map((serve => (
+                            <Typography
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {serve}
+                          </Typography>
+                        )))
+                        }
+                        </React.Fragment>
+                      }
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Drugs" 
+                  secondary={
+                    <React.Fragment>
+                      {vals.services.map((serve => (
+                        <Typography
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {serve}
+                      </Typography>
+                    )))
+                    }
+                    </React.Fragment>
+                  }/>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </nav>
+          <Divider />
         </Box>
     );
 }
+
+TreatmentList.propTypes = {
+    treatment_vals: PropTypes.shape({
+      timegap: PropTypes.string.isRequired,
+      symptoms: PropTypes.array.isRequired,
+      services: PropTypes.array.isRequired,
+      drugs: PropTypes.array.isRequired,
+    }).isRequired,
+};
+
+function TopBar() {
+    return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
+}
+
 
 function ProcessPatient(data) {
     let name;
@@ -60,8 +141,70 @@ function PatientInfo(id) {
     }, []);
 }
 
+function createData(json) {
+    // send single predictions ONLY
+    // don't allow modification
+    let timegap = ""
+    let symptoms = []
+    let services = []
+    let drugs = []
+
+    for (let i = 0; i < json.length; i++) {
+        var component = json[i]
+        if (component.system === "timegap") {
+            timegap = component.display
+        } else if (component.system === "ICD10CM") {
+            symptoms.push(component.display)
+        } else if (component.system === "CPT4" || component.system === "HCPCS") {
+            services.push(component.display)
+        } else if (component.system === "NDC" || component.system === "RXNORM-FREETEXT") {
+            drugs.push(component.display)
+        }
+    }
+
+    return {
+        timegap,
+        symptoms,
+        services,
+        drugs,
+    };
+}
+
+function createBlankData(timegap, symptoms, services, drugs) {
+    return {
+        timegap : "",
+        symptoms : [],
+        services : [],
+        drugs: [],
+    };
+}
+
+function Treatment(num, displays) {
+    const [checked, setChecked] = React.useState(true);
+    const handleChange = (event) => {
+      setChecked(event.target.checked);
+    };
+
+    return (
+        <Box>
+            <div id="treatment">
+                <h1 id="treatment-header">
+                    Treatment {num}
+                </h1>
+                <Checkbox id="treatment-select" defaultChecked checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }}/>
+            </div>
+            <FormControl fullWidth>
+                {TreatmentList(displays)}
+            </FormControl>
+        </Box>
+    );
+}
+
+
 function PatientTreatment() {
-    const [treatments, setTreatments] = useState([]);
+    const [treatment1, setTreatment1] = useState(createBlankData());
+    const [treatment2, setTreatment2] = useState(createBlankData());
+    const [treatment3, setTreatment3] = useState(createBlankData());
 
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
@@ -71,9 +214,10 @@ function PatientTreatment() {
     }
 
     PatientInfo(patientID)
-    
+
+
     useEffect (() => {
-        const patientData = async () => {
+        const treatmentData  = async () => {
             const response = await fetch ('http://localhost:18000/api/treatment/generate-treatment', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -82,10 +226,142 @@ function PatientTreatment() {
                 }
             });
             const treats = await response.json();
-            setTreatments(treats)
+            try { 
+                setTreatment1(createData(treats.predictions[0]))
+                setTreatment2(createData(treats.predictions[1]))
+                setTreatment3(createData(treats.predictions[2]))
+            } catch (error) {
+                console.log(error)
+                setTreatment1(createData([
+                    {
+                        "system": "RXNORM-FREETEXT",
+                        "code": "acetaminophen",
+                        "display": "acetaminophen"
+                    },
+                    {
+                        "system": "CPT4",
+                        "code": "77052",
+                        "display": "Computer-aided detection (computer algorithm analysis of digital image data for lesion detection) with further review for interpretation, with or without digitization of film radiographic images; screening mammography (List separately in addition to code "
+                    },
+                    {
+                        "system": "ICD10PCS",
+                        "code": "1",
+                        "display": "Obstetrics (Procedure)"
+                    },
+                    {
+                        "system": "ICD10CM",
+                        "code": "Q25",
+                        "display": "Congenital malformations of great arteries"
+                    },
+                    {
+                        "system": "CPT4",
+                        "code": "97003",
+                        "display": "Occupational therapy evaluation"
+                    },
+                    {
+                        "system": "CPT4",
+                        "code": "85018",
+                        "display": "Blood count; hemoglobin (Hgb)"
+                    },
+                    {
+                        "system": "HCPCS",
+                        "code": "H2014",
+                        "display": "Skills training and development, per 15 minutes"
+                    },
+                    {
+                        "system": "timegap",
+                        "code": "00-01-month",
+                        "display": "00-01-month"
+                    }
+                ]))
+                setTreatment2(createData([
+                    {
+                        "system": "CPT4",
+                        "code": "52648",
+                        "display": "Laser vaporization of prostate, including control of postoperative bleeding, complete (vasectomy, meatotomy, cystourethroscopy, urethral calibration and/or dilation, internal urethrotomy and transurethral resection of prostate are included if performed)"
+                    },
+                    {
+                        "system": "ICD10CM",
+                        "code": "Z12",
+                        "display": "Encounter for screening for malignant neoplasms"
+                    },
+                    {
+                        "system": "timegap",
+                        "code": "00-01-month",
+                        "display": "00-01-month"
+                    },
+                    {
+                        "system": "RXNORM-FREETEXT",
+                        "code": "pramoxine",
+                        "display": "pramoxine"
+                    },
+                    {
+                        "system": "ICD10CM",
+                        "code": "Z00",
+                        "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+                    },
+                    {
+                        "system": "ICD10CM",
+                        "code": "Z00",
+                        "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+                    }
+                ]))
+                setTreatment3(createData([
+                        {
+                            "system": "ICD10CM",
+                            "code": "N52",
+                            "display": "Male erectile dysfunction"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "N14",
+                            "display": "Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions"
+                        },
+                        {
+                            "system": "CPT4",
+                            "code": "53600",
+                            "display": "Dilation of urethral stricture by passage of sound or urethral dilator, male; initial"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "N18",
+                            "display": "Chronic kidney disease (CKD)"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "B18",
+                            "display": "Chronic viral hepatitis"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "Z00",
+                            "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "I49",
+                            "display": "Other cardiac arrhythmias"
+                        },
+                        {
+                            "system": "timegap",
+                            "code": "00-01-month",
+                            "display": "00-01-month"
+                        },
+                        {
+                            "system": "RXNORM-FREETEXT",
+                            "code": "docusate",
+                            "display": "docusate"
+                        },
+                        {
+                            "system": "ICD10CM",
+                            "code": "Q23",
+                            "display": "Congenital malformations of aortic and mitral valves"
+                        }
+                    ]))
+            }
         };
-        patientData();
-    });
+        treatmentData();
+    }, []);
 
     return (
         <div>
@@ -96,9 +372,9 @@ function PatientTreatment() {
                         <FormControlLabel control={<Checkbox defaultChecked />} label="Select All" />
                     </FormGroup>
                 <div>
-                    {Treatment(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam quam nulla porttitor massa id. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Enim ut sem viverra aliquet eget sit. Ac feugiat sed lectus vestibulum mattis ullamcorper velit. Elit ut aliquam purus sit amet. Malesuada pellentesque elit eget gravida cum sociis natoque penatibus et. Non pulvinar neque laoreet suspendisse interdum consectetur. Varius duis at consectetur lorem. Sit amet cursus sit amet dictum sit. Est pellentesque elit ullamcorper dignissim. Pretium quam vulputate dignissim suspendisse in est. Id volutpat lacus laoreet non. Faucibus nisl tincidunt eget nullam non nisi. Facilisis gravida neque convallis a cras semper auctor neque vitae. Eu scelerisque felis imperdiet proin fermentum leo. Tristique nulla aliquet enim tortor at auctor. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Amet commodo nulla facilisi nullam vehicula.")}
-                    {Treatment(2, "Eu mi bibendum neque egestas congue quisque egestas diam in. Gravida in fermentum et sollicitudin ac. Bibendum est ultricies integer quis auctor elit. Sed felis eget velit aliquet sagittis id consectetur purus. Pharetra sit amet aliquam id diam maecenas. Urna id volutpat lacus laoreet non curabitur gravida. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Blandit cursus risus at ultrices. Sit amet volutpat consequat mauris nunc congue. Urna cursus eget nunc scelerisque viverra mauris in aliquam.")}
-                    {Treatment(3, "Cursus in hac habitasse platea dictumst quisque. Condimentum mattis pellentesque id nibh tortor id. Molestie at elementum eu facilisis sed odio morbi. Egestas diam in arcu cursus euismod quis viverra. Amet cursus sit amet dictum. Quis vel eros donec ac. Id leo in vitae turpis. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Arcu felis bibendum ut tristique et egestas quis ipsum. Consectetur purus ut faucibus pulvinar elementum integer enim neque. Netus et malesuada fames ac turpis egestas. Tortor posuere ac ut consequat semper viverra nam libero justo. Porttitor lacus luctus accumsan tortor. Gravida arcu ac tortor dignissim convallis. Odio eu feugiat pretium nibh ipsum consequat. Lobortis elementum nibh tellus molestie nunc. Amet mattis vulputate enim nulla. Donec enim diam vulputate ut pharetra sit. Tristique magna sit amet purus.")}
+                    {Treatment(1, treatment1)}
+                    {Treatment(2, treatment2)}
+                    {Treatment(3, treatment3)}
                 </div>
                 <Button id="fixed-button"  size="large" component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button>
             </div>

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import "./Landing.css";
-import avatar from './images/Avatar.gif';
+import avatar from './images/doc-square.png';
 
 function Landing() {
   const [doctorName, setDoctorName] = useState('Watson');
