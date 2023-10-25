@@ -14,6 +14,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function TreatmentList(vals) {
     return (
@@ -180,25 +185,17 @@ function createBlankData(timegap, symptoms, services, drugs) {
     };
 }
 
-function checkChecks(id, t1, t2, t3) {
-    let save1 = document.getElementById("checksel1").getAttribute("checked")
-    let save2 = document.getElementById("checksel2").getAttribute("checked")
-    let save3 = document.getElementById("checksel3").getAttribute("checked")
-
-    const saveTreatment = async(bodyText) => {
-        const response = await fetch("localhost:18000/api/save/save-treatment",{
-            method: 'POST',
-            body: bodyText,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const reply = await response.json();
+function NextButton(id, t1, t2, t3) {
+    const [open, setOpen] = React.useState(false);
+    const [save1, setSave1] = React.useState("false");
+    const [save2, setSave2] = React.useState("false");
+    const [save3, setSave3] = React.useState("false");
+    
+    const getCheckState = async() => {
+        setSave1(document.getElementById("checksel1").getAttribute("checked"))
+        setSave2(document.getElementById("checksel2").getAttribute("checked"))
+        setSave3(document.getElementById("checksel3").getAttribute("checked"))
     }
-
-    const redirect = (string) => {
-        window.location.href = `/discardTreatment/:${id}/:${string}`
-     }
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -232,8 +229,68 @@ function checkChecks(id, t1, t2, t3) {
         "predictions" : preds,
     }
 
-    saveTreatment(body)
-    redirect(disc)
+    const redirect1 = (string) => {
+        window.location.href = `/discardTreatment/:${id}/:${string}`;
+    }
+
+    const redirect2 = () => {
+        window.location.href = `/patientRecord/:${id}`;
+    }
+
+    const handleClickOpen = () => {
+        getCheckState()
+        setOpen(true);
+    };
+    
+    const handleDisagree = () => {
+        setOpen(false);
+    };
+
+    const handleAgree = () => {
+        setOpen(false);
+        saveTreatment(body);
+        if (disc === ""){
+            redirect2()
+        } else {
+            redirect1(disc)
+        }
+    }
+
+    const saveTreatment = async(bodyText) => {
+        const response = await fetch("localhost:18000/api/save/save-treatment",{
+            method: 'POST',
+            body: bodyText,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const reply = await response.json();
+    }
+    
+    return (
+        <div>
+            <Button id="fixed-button"  size="large" variant="contained" onClick={handleClickOpen}>Next</Button>
+            <Dialog
+            open={open}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title">
+                {"Save Treatments?"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    This will save the selected treatments. If no treatments are selected, you will return to the patient record after note taking.
+            </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleDisagree}>No</Button>
+                <Button onClick={handleAgree} autoFocus>Yes</Button>
+            </DialogActions>
+            </Dialog>
+        </div>
+    )
+    
 }
 
 function Treatment(num, displays) {
@@ -442,7 +499,7 @@ function PatientTreatment() {
                     {Treatment(2, t2)}
                     {Treatment(3, t3)}
                 </div>
-                <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} variant="contained">Next</Button>
+                {NextButton(patientID, treatment1, treatment1, treatment3)}
                 {/* <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button> */}
             </div>
 
