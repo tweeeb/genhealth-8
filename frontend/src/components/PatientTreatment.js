@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Link , useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import "./PatientTreatment.css";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -82,12 +82,12 @@ function TreatmentList(vals) {
                   <ListItemText primary="Drugs" 
                   secondary={
                     <React.Fragment>
-                      {vals.services.map((serve => (
+                      {vals.drugs.map((drug => (
                         <Typography
                         variant="body2"
                         color="text.primary"
                       >
-                        {serve}
+                        {drug}
                       </Typography>
                     )))
                     }
@@ -155,10 +155,11 @@ function createData(json) {
             timegap = component.display
         } else if (component.system === "ICD10CM") {
             symptoms.push(component.display)
-        } else if (component.system === "CPT4" || component.system === "HCPCS") {
+        } else if (component.system === "CPT4" || component.system === "HCPCS" || component.system === "ICD10PCS") {
             services.push(component.display)
         } else if (component.system === "NDC" || component.system === "RXNORM-FREETEXT") {
-            drugs.push(component.display)
+            let string = component.display
+            drugs.push(string.charAt(0).toUpperCase() + string.slice(1))
         }
     }
 
@@ -179,10 +180,68 @@ function createBlankData(timegap, symptoms, services, drugs) {
     };
 }
 
+function checkChecks(id, t1, t2, t3) {
+    let save1 = document.getElementById("checksel1").getAttribute("checked")
+    let save2 = document.getElementById("checksel2").getAttribute("checked")
+    let save3 = document.getElementById("checksel3").getAttribute("checked")
+
+    const saveTreatment = async(bodyText) => {
+        const response = await fetch("localhost:18000/api/save/save-treatment",{
+            method: 'POST',
+            body: bodyText,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const reply = await response.json();
+    }
+
+    const redirect = (string) => {
+        window.location.href = `/discardTreatment/:${id}/:${string}`
+     }
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd +  "-" + mm + "-" + yyyy
+
+    let preds = []
+    let disc = ""
+
+    if (save1 === "true" || save1 === "") {
+        preds.push(t1)
+    } else {
+        disc = disc + "1"
+    }
+    if (save2 === "true" || save2 === "") {
+        preds.push(t2)
+    } else {
+        disc = disc + "2"
+    }
+    if (save3 === "true" || save3 === "") {
+        preds.push(t3)
+    } else {
+        disc = disc + "3"
+    }
+
+    let body = {
+        "patientID" : id,
+        "date" : today,
+        "predictions" : preds,
+    }
+
+    saveTreatment(body)
+    redirect(disc)
+}
+
 function Treatment(num, displays) {
+    let checkname = "checksel" + num
     const [checked, setChecked] = React.useState(true);
     const handleChange = (event) => {
       setChecked(event.target.checked);
+      document.getElementById(checkname).setAttribute("checked", !checked)
     };
 
     return (
@@ -191,7 +250,7 @@ function Treatment(num, displays) {
                 <h1 id="treatment-header">
                     Treatment {num}
                 </h1>
-                <Checkbox id="treatment-select" defaultChecked checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }}/>
+                <Checkbox id={checkname} checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }}/>
             </div>
             <FormControl fullWidth>
                 {TreatmentList(displays)}
@@ -205,6 +264,7 @@ function PatientTreatment() {
     const [treatment1, setTreatment1] = useState(createBlankData());
     const [treatment2, setTreatment2] = useState(createBlankData());
     const [treatment3, setTreatment3] = useState(createBlankData());
+    const [selection, setSelection] = React.useState(true);
 
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
@@ -227,12 +287,12 @@ function PatientTreatment() {
             });
             const treats = await response.json();
             try { 
-                setTreatment1(createData(treats.predictions[0]))
-                setTreatment2(createData(treats.predictions[1]))
-                setTreatment3(createData(treats.predictions[2]))
+                setTreatment1(treats.predictions[0])
+                setTreatment2(treats.predictions[1])
+                setTreatment3(treats.predictions[2])
             } catch (error) {
                 console.log(error)
-                setTreatment1(createData([
+                setTreatment1([
                     {
                         "system": "RXNORM-FREETEXT",
                         "code": "acetaminophen",
@@ -273,8 +333,8 @@ function PatientTreatment() {
                         "code": "00-01-month",
                         "display": "00-01-month"
                     }
-                ]))
-                setTreatment2(createData([
+                ])
+                setTreatment2([
                     {
                         "system": "CPT4",
                         "code": "52648",
@@ -305,8 +365,8 @@ function PatientTreatment() {
                         "code": "Z00",
                         "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
                     }
-                ]))
-                setTreatment3(createData([
+                ])
+                setTreatment3([
                         {
                             "system": "ICD10CM",
                             "code": "N52",
@@ -357,26 +417,33 @@ function PatientTreatment() {
                             "code": "Q23",
                             "display": "Congenital malformations of aortic and mitral valves"
                         }
-                    ]))
+                ])
             }
         };
         treatmentData();
     }, []);
+
+    const handleChange = (event) => {
+        setSelection(event.target.checked);
+    };
+
+    let t1 = createData(treatment1)
+    let t2 = createData(treatment2)
+    let t3 = createData(treatment3)
+
 
     return (
         <div>
             <TopBar />
             <div id="data">
                 <h1><span className="title" id="title"> Here are the generated treatments for </span></h1>
-                    <FormGroup>
-                        <FormControlLabel control={<Checkbox defaultChecked />} label="Select All" />
-                    </FormGroup>
                 <div>
-                    {Treatment(1, treatment1)}
-                    {Treatment(2, treatment2)}
-                    {Treatment(3, treatment3)}
+                    {Treatment(1, t1)}
+                    {Treatment(2, t2)}
+                    {Treatment(3, t3)}
                 </div>
-                <Button id="fixed-button"  size="large" component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button>
+                <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} variant="contained">Next</Button>
+                {/* <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button> */}
             </div>
 
         </div>

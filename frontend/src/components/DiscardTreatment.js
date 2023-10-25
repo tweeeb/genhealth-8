@@ -34,23 +34,20 @@ function Treatment(num, val) {
 }
 
 function DiscardTreatment() {
-    const {id} = useParams()
+    const {id, vals} = useParams()
     let patientID = id.substring(1 , id.length);
+    let treatments = vals.substring(1 , vals.length).split("");
     return (
         <div>
             <TopBar />
             <div id="data">
                 <h1><span className="title" id="title">To improve our service, please tell us the reasons for discarding these treatments?</span></h1>
-                <h1 id="discard-header">
-                    Discarded treatments:
-                </h1>
-                <h2 id="discard-info">
-                    Treatment 1, Treatment 2, Treatment 3
-                </h2>
                 <div>
-                    {Treatment(1)}
-                    {Treatment(2)}
-                    {Treatment(3)}
+                    {
+                        treatments.map((num => (
+                            Treatment(num)
+                        )))
+                    }
                 </div>
                 <Button id="fixed-button"  size="large" component={Link} to={`/patientRecord/:${patientID}`} variant="contained">Save</Button>
             </div>
