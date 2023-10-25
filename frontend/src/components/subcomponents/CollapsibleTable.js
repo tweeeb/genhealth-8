@@ -133,7 +133,7 @@ export default function CollapsibleTable() {
           <TableRow>
             <TableCell />
             <TableCell>Date</TableCell>
-            <TableCell align="left">Treatment</TableCell>
+            <TableCell align="left">Sage Support Recommended Care</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
