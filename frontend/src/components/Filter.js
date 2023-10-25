@@ -7,7 +7,20 @@ const Filter = ({ onFilterSubmit }) => {
   const [minDataValue, setMinDataValue] = useState('');
   const [maxDataValue, setMaxDataValue] = useState('');
   const [error, setError] = useState(null);
+  const [options, setOptions] = useState(['Body Weight', 'Calcium', 'Glucose']);
 
+  const updateOptions = (value) => {
+    if (value === 'b' || value === 'w') {
+      setOptions(['Body Weight']);
+    } else if (value === 'c') {
+      setOptions(['Calcium']);
+    } else if (value === 'g') {
+      setOptions(['Glucose']);
+    } else {
+      setOptions(['Body Weight', 'Calcium', 'Glucose']);
+    }
+  }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(null); 
@@ -42,9 +55,20 @@ const Filter = ({ onFilterSubmit }) => {
       <input
         type="text"
         placeholder="Data Name"
+        list="dataNames"  // datalist ID reference
         value={dataName}
-        onChange={(e) => setDataName(e.target.value)}
+        onChange={(e) => {
+          setDataName(e.target.value);
+          updateOptions(e.target.value);
+        }}
       />
+      {/* The datalist with options */}
+      <datalist id="dataNames">
+        {options.map((option, index) => (
+          <option key={index} value={option} />
+        ))}
+      </datalist>
+
       <input
         type="text"
         placeholder="Data Value (Min)"

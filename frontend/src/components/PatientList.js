@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 function TopBar() {
-  return <div className="top-bar" onClick={() => window.location.href='/'}>DIGIHEALTH</div>;
+  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
 function Sidebar() {

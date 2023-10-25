@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 
 function TopBar() {
-    return <div className="top-bar" onClick={() => window.location.href='/'}>DIGIHEALTH</div>;
+    return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
 function Treatment(num, val) {

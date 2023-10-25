@@ -6,7 +6,7 @@ import Filter from './Filter';
 import './FindPatient.css';
 
 function TopBar() {
-  return <div className="top-bar" onClick={() => window.location.href='/'}>DIGIHEALTH</div>;
+  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
 const FindPatient = () => {
