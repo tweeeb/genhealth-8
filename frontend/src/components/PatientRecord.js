@@ -176,13 +176,14 @@ function CreateLabData(entry) {
 function PatientHistory(patientID) {
     const [history, setHistory] = React.useState([]);
 
-    const getHistory = async(id) => {
-        const response = await fetch(`localhost:18000/api/save/get-treatment/${id}`);
-        const reply = await response.json();
-        setHistory(reply)
-    }
-    
-    getHistory(patientID)
+    useEffect(() => {
+        const getHistory = async(id) => {
+            const response = await fetch(`localhost:18000/api/save/get-treatment/${id}`);
+            const reply = await response.json();
+            setHistory(reply)
+        }
+        getHistory(patientID)
+    }, []);
 }
 
 
