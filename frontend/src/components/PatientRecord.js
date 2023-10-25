@@ -89,13 +89,28 @@ function GetPatientCondition(id) {
 
     useEffect(() => {
         const getCondition = async(id) => {
-            const response = await fetch(`http://localhost:18000/api/patientData/condition/${id}`);
+            const response = await fetch(`https://launch.smarthealthit.org/v/r4/fhir/Condition?patient=${id}`);
             const reply = await response.json();
-            setConditions(reply)
+            setConditions(CreateConditionData(reply.entry))
         };
         getCondition(id);
     }, []);
     return conditions
+}
+
+function CreateConditionData(entry) {
+    let conds = []
+    for (let i = 0; i < entry.length; i++){
+        var condition = entry[i].resource
+        conds.push({
+            date: condition.recordedDate,
+            display: condition.code.text,
+            status: condition.clinicalStatus.coding[0].code
+        })
+        console.log(condition.resourceType)
+    }
+    return conds
+
 }
 
 function PatientHistory(patientID) {
@@ -121,8 +136,8 @@ function PatientRecord() {
 
     PatientInfo(patientID);
     // PatientHistory(patientID);
-    GetPatientCondition(patientID)
-    
+    let conds = GetPatientCondition(patientID)
+    console.log(conds)
 
     return (
         <div>
