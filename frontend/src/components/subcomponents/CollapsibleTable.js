@@ -138,7 +138,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.date} row={row} />
+            <Row key={`${row.date}${row.display}`} row={row} />
           ))}
         </TableBody>
       </Table>

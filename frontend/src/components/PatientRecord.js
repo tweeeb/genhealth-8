@@ -4,6 +4,7 @@ import CollapsibleTable from "./subcomponents/CollapsibleTable";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import "./PatientRecord.css";
 import IconButton from '@mui/material/IconButton';
+import StatusList from "./subcomponents/StatusList";
 
 function TopBar() {
     return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
@@ -103,15 +104,73 @@ function CreateConditionData(entry) {
     for (let i = 0; i < entry.length; i++){
         var condition = entry[i].resource
         conds.push({
-            date: condition.recordedDate,
+            date: condition.recordedDate.slice(0,9),
             display: condition.code.text,
+            class: "Conditions",
             status: condition.clinicalStatus.coding[0].code
         })
-        console.log(condition.resourceType)
     }
     return conds
 
 }
+
+function GetPatientMedications(id) {
+    const [medications, setMeds] = React.useState([]);
+
+    useEffect(() => {
+        const getMedications = async(id) => {
+            const response = await fetch(`http://localhost:18000/api/patientData/medication/${id}`);
+            const reply = await response.json();
+            setMeds(CreateMedicationData(reply.entry))
+        };
+        getMedications(id);
+    }, []);
+    return medications
+}
+
+function CreateMedicationData(entry) {
+    let meds = []
+    for (let i = 0; i < entry.length; i++){
+        var medentry = entry[i].resource
+        meds.push({
+            date: medentry.authoredOn.slice(0,9), 
+            display: medentry.medicationCodeableConcept.text,
+            class: "Medications",
+            status: medentry.status
+        })
+    }
+    return meds
+}
+
+function GetPatientLabs(id) {
+    const [labs, setLabs] = React.useState([]);
+
+    useEffect(() => {
+        const getLabs = async(id) => {
+            const response = await fetch(`http://localhost:18000/api/patientData/test-result/${id}`);
+            const reply = await response.json();
+            setLabs(CreateLabData(reply.entry))
+        };
+        getLabs(id);
+    }, []);
+    return labs
+}
+
+function CreateLabData(entry) {
+    let labs = []
+    for (let i = 0; i < entry.length; i++){
+        var labresults = entry[i].resource
+        labs.push({
+            date: labresults.effectiveDateTime.slice(0,9), 
+            display: labresults.code.text,
+            class: "Labs",
+            status: labresults.status
+        })
+    }
+    return labs
+
+}
+
 
 function PatientHistory(patientID) {
     const [history, setHistory] = React.useState([]);
@@ -123,7 +182,6 @@ function PatientHistory(patientID) {
     }
     
     getHistory(patientID)
-    console.log(history)
 }
 
 
@@ -134,10 +192,35 @@ function PatientRecord() {
     let patientSex;
     let patientAge;
 
+    (function(){
+        if (typeof Object.defineProperty === 'function'){
+          try{Object.defineProperty(Array.prototype,'sortBy',{value:sb}); }catch(e){}
+        }
+        if (!Array.prototype.sortBy) Array.prototype.sortBy = sb;
+      
+        function sb(f){
+          for (var i=this.length;i;){
+            var o = this[--i];
+            this[i] = [].concat(f.call(o,o,i),o);
+          }
+          this.sort(function(a,b){
+            for (var i=0,len=a.length;i<len;++i){
+              if (a[i]!=b[i]) return a[i]<b[i]?-1:1;
+            }
+            return 0;
+          });
+          for (var i=this.length;i;){
+            this[--i]=this[i][this[i].length-1];
+          }
+          return this;
+        }
+      })();
+
     PatientInfo(patientID);
     // PatientHistory(patientID);
-    let conds = GetPatientCondition(patientID)
-    console.log(conds)
+    let conds = GetPatientCondition(patientID).sortBy(function(o){ return o.date }).reverse();
+    let meds = GetPatientMedications(patientID).sortBy(function(o){ return o.date }).reverse();
+    let labs = GetPatientLabs(patientID).sortBy(function(o){ return o.date }).reverse();
 
     return (
         <div>
@@ -160,6 +243,17 @@ function PatientRecord() {
                     </div>
                 </div>
                 <CollapsibleTable> </CollapsibleTable>
+                <div>
+                    <h1><span className="patientHeader">Patient History</span></h1>
+                    <h1><span className="patientSub">Conditions</span></h1>
+                    {StatusList(conds)}
+
+                    <h1><span className="patientSub">Medications</span></h1>
+                    {StatusList(meds)}
+
+                    <h1><span className="patientSub">Lab Results</span></h1>
+                    {StatusList(labs)}
+                </div>
             </div>
 
         </div>
