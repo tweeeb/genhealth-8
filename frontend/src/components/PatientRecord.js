@@ -38,18 +38,6 @@ function ProcessPatient(data) {
     return [name, sex, birth]
 }
 
-function PatientHistory(id) {
-    useEffect(() => {
-        const fetchHistory = async() => {
-            const response = await fetch(
-                'localhost:18000/api/save/get-treatment/' + id
-            );
-            const past = await response.body();
-        };
-        fetchHistory();
-    });
-}
-
 function PatientInfo(id) {
     useEffect(() => {
         const fetchPatient = async() => {
@@ -66,15 +54,75 @@ function PatientInfo(id) {
     }, []);
 }
 
+function createData(json) {
+    // send single predictions ONLY
+    // don't allow modification
+    let timegap = ""
+    let symptoms = []
+    let services = []
+    let drugs = []
+
+    for (let i = 0; i < json.length; i++) {
+        var component = json[i]
+        if (component.system === "timegap") {
+            timegap = component.display
+        } else if (component.system === "ICD10CM") {
+            symptoms.push(component.display)
+        } else if (component.system === "CPT4" || component.system === "HCPCS" || component.system === "ICD10PCS") {
+            services.push(component.display)
+        } else if (component.system === "NDC" || component.system === "RXNORM-FREETEXT") {
+            let string = component.display
+            drugs.push(string.charAt(0).toUpperCase() + string.slice(1))
+        }
+    }
+
+    return {
+        timegap,
+        symptoms,
+        services,
+        drugs,
+    };
+}
+
+function GetPatientCondition(id) {
+    const [conditions, setConditions] = React.useState([]);
+
+    useEffect(() => {
+        const getCondition = async(id) => {
+            const response = await fetch(`http://localhost:18000/api/patientData/condition/${id}`);
+            const reply = await response.json();
+            setConditions(reply)
+        };
+        getCondition(id);
+    }, []);
+    return conditions
+}
+
+function PatientHistory(patientID) {
+    const [history, setHistory] = React.useState([]);
+
+    const getHistory = async(id) => {
+        const response = await fetch(`localhost:18000/api/save/get-treatment/${id}`);
+        const reply = await response.json();
+        setHistory(reply)
+    }
+    
+    getHistory(patientID)
+    console.log(history)
+}
+
+
 function PatientRecord() {
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
-    
     let patientName;
     let patientSex;
     let patientAge;
 
     PatientInfo(patientID);
+    // PatientHistory(patientID);
+    GetPatientCondition(patientID)
+    
 
     return (
         <div>

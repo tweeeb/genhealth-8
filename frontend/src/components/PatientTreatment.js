@@ -246,16 +246,6 @@ function NextButton(id, t1, t2, t3) {
         setOpen(false);
     };
 
-    const handleAgree = () => {
-        setOpen(false);
-        saveTreatment(body);
-        if (disc === ""){
-            redirect2()
-        } else {
-            redirect1(disc)
-        }
-    }
-
     const saveTreatment = async(bodyText) => {
         const response = await fetch("localhost:18000/api/save/save-treatment",{
             method: 'POST',
@@ -265,6 +255,16 @@ function NextButton(id, t1, t2, t3) {
             }
         });
         const reply = await response.json();
+    }
+
+    const handleAgree = () => {
+        setOpen(false);
+        saveTreatment(body);
+        if (disc === ""){
+            redirect2()
+        } else {
+            redirect1(disc)
+        }
     }
     
     return (
