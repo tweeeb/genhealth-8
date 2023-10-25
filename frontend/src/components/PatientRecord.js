@@ -49,7 +49,8 @@ function PatientInfo(id) {
             let arr = ProcessPatient(patient);
             document.getElementById("pname").innerText = arr[0];
             document.getElementById("pSex").innerText = "Gender:" + " " + arr[1];
-            document.getElementById("pBirth").innerText = "Birth Date:" + " " + arr[2] + " (" + getAge(arr[2]) + ")"
+            document.getElementById("pBirth").innerText = "Date Of Birth:" + " " + arr[2]
+            document.getElementById("pAge").innerText = "Age: " + getAge(arr[2])
         };
         fetchPatient();
     }, []);
@@ -230,7 +231,8 @@ function PatientRecord() {
                     <h1><span className="patientHeader" id="pname">{patientName}</span></h1>
                     <h1><span className="patientDetail" id="pID">ID: {patientID}</span></h1>
                     <h1><span className="patientDetail" id="pSex">Gender: {patientSex}</span></h1>
-                    <h1><span className="patientDetail" id= "pBirth">Birth Date: {patientAge}</span></h1>
+                    <h1><span className="patientDetail" id= "pBirth">Date Of Birth: {patientAge}</span></h1>
+                    <h1><span className="patientDetail" id= "pAge">Age: {patientAge}</span></h1>
                 </div>
                 <div>
                     <div id="s1">

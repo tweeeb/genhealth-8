@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import TreatmentList from './TreatmentList';
 
 function createData(date, display, details) {
   return {
@@ -82,18 +83,7 @@ function Row(props) {
             <Box sx={{ margin: 1 }}>
               {row.details.map((detailsRow => (
                 <div>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Timegap : {detailsRow.timegap}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Symptoms : {detailsRow.symptoms}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Services : {detailsRow.services}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Drugs: {detailsRow.drugs}
-                  </Typography>
+                  {TreatmentList(detailsRow)}
                 </div>
               )))}
             </Box>
