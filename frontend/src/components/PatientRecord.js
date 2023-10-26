@@ -178,12 +178,21 @@ function PatientHistory(patientID) {
 
     useEffect(() => {
         const getHistory = async(id) => {
-            const response = await fetch(`localhost:18000/api/save/get-treatment/${id}`);
+            const response = await fetch(`http://localhost:18000/api/save/get-treatment/${id}`);
             const reply = await response.json();
-            setHistory(reply)
+            let recs = []
+            for (let i = 0; i < reply.length; i++) {
+                let d = reply[i].date
+                for (let p = 0; p < reply[i].predictions.length; p++) {
+                    let detail = createData(reply[i].predictions[p])
+                    recs.push({date: d, display: detail.symptoms[0], details: detail})
+                }
+            }
+            setHistory(recs)
         }
         getHistory(patientID)
     }, []);
+    return history
 }
 
 
@@ -219,7 +228,7 @@ function PatientRecord() {
       })();
 
     PatientInfo(patientID);
-    // PatientHistory(patientID);
+    let history = PatientHistory(patientID);
     let conds = GetPatientCondition(patientID).sortBy(function(o){ return o.date }).reverse();
     let meds = GetPatientMedications(patientID).sortBy(function(o){ return o.date }).reverse();
     let labs = GetPatientLabs(patientID).sortBy(function(o){ return o.date }).reverse();
@@ -245,7 +254,7 @@ function PatientRecord() {
                         </IconButton>
                     </div>
                 </div>
-                <CollapsibleTable> </CollapsibleTable>
+                {CollapsibleTable(history)}
                 <div>
                     <h1><span className="patientHeader">Patient History</span></h1>
                     <h1><span className="patientSub">Conditions</span></h1>
