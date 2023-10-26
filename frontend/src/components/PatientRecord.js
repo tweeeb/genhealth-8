@@ -185,7 +185,7 @@ function PatientHistory(patientID) {
                 let d = reply[i].date
                 for (let p = 0; p < reply[i].predictions.length; p++) {
                     let detail = createData(reply[i].predictions[p])
-                    recs.push({date: d, display: detail.symptoms[0], details: detail})
+                    recs.push({date: d, display: detail.services[0], details: detail})
                 }
             }
             setHistory(recs)
