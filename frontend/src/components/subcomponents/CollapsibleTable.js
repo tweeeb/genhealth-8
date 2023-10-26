@@ -96,11 +96,11 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    date: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
     display: PropTypes.number.isRequired,
     details: PropTypes.arrayOf(
       PropTypes.shape({
-        timegap: PropTypes.number.isRequired,
+        timegap: PropTypes.string.isRequired,
         symptoms: PropTypes.string.isRequired,
         services: PropTypes.string.isRequired,
         drugs: PropTypes.string.isRequired,

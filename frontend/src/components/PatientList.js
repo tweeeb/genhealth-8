@@ -29,7 +29,7 @@ function Sidebar() {
     );
 }
 
-const PatientListContent = () => {
+function PatientListContent() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -62,30 +62,15 @@ const PatientListContent = () => {
     fetchAllPatients();
   }, []);
 
-
-  const renderPatientName = (patient) => {
-    const fullNames = (patient.name.map(n => `${n.prefix[0]} ${n.given.join(' ')} ${n.family}`).join(', ')).split(",")[0];
-    const age = new Date().getFullYear() - new Date(patient.birthDate).getFullYear();
-
-    return (
-      <>
-          {fullNames}
-          <span className="spacing"></span>
-          Age: {age} yrs
-          <span className="spacing"></span>
-          {patient.dataName}: {patient.dataValue} {patient.unit}
-      </>
-    );
-  };
+  console.log(patients)
 
   return (
     <div>
       <Box sx={{ width: '100%', bgcolor: 'background.paper'}} id="content">
         <List component="nav" aria-label="secondary mailbox folder">
           {patients.map((patient) => (
-            <ListItemButton
-              component={Link} to={`/patientRecord/:${patient.id}`}
-            >
+            <React.Fragment key={patient.id}>
+              <ListItemButton component={Link} to={`/patientRecord/:${patient.id}`}>
             <ListItemText primary={(patient.name.map(n => `${n.prefix[0]} ${n.given.join(' ')} ${n.family}`).join(', ')).split(",")[0]} 
               secondary={"Age : " + (new Date().getFullYear() - new Date(patient.birthDate).getFullYear())}>
             </ListItemText>
@@ -93,15 +78,13 @@ const PatientListContent = () => {
                 id : {patient.id}
             </Typography>
             </ListItemButton>
+            </React.Fragment>
           ))}
         </List>
       </Box>
     </div>
   );
 };
-
-
-  
 
 
 function AddPatientButton() {

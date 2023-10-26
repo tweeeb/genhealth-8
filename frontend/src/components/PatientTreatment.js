@@ -19,7 +19,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import TreatmentList from "./subcomponents/TreatmentList";
 
 function TopBar() {
@@ -82,13 +81,143 @@ function createData(json) {
     };
 }
 
-function createBlankData(timegap, symptoms, services, drugs) {
-    return {
-        timegap : "",
-        symptoms : [],
-        services : [],
-        drugs: [],
-    };
+function create1() {
+    return [
+        {
+            "system": "RXNORM-FREETEXT",
+            "code": "acetaminophen",
+            "display": "acetaminophen"
+        },
+        {
+            "system": "CPT4",
+            "code": "77052",
+            "display": "Computer-aided detection (computer algorithm analysis of digital image data for lesion detection) with further review for interpretation, with or without digitization of film radiographic images; screening mammography (List separately in addition to code "
+        },
+        {
+            "system": "ICD10PCS",
+            "code": "1",
+            "display": "Obstetrics (Procedure)"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Q25",
+            "display": "Congenital malformations of great arteries"
+        },
+        {
+            "system": "CPT4",
+            "code": "97003",
+            "display": "Occupational therapy evaluation"
+        },
+        {
+            "system": "CPT4",
+            "code": "85018",
+            "display": "Blood count; hemoglobin (Hgb)"
+        },
+        {
+            "system": "HCPCS",
+            "code": "H2014",
+            "display": "Skills training and development, per 15 minutes"
+        },
+        {
+            "system": "timegap",
+            "code": "00-01-month",
+            "display": "00-01-month"
+        }
+    ];
+}
+
+function create2() {
+    return [
+        {
+            "system": "CPT4",
+            "code": "52648",
+            "display": "Laser vaporization of prostate, including control of postoperative bleeding, complete (vasectomy, meatotomy, cystourethroscopy, urethral calibration and/or dilation, internal urethrotomy and transurethral resection of prostate are included if performed)"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Z12",
+            "display": "Encounter for screening for malignant neoplasms"
+        },
+        {
+            "system": "timegap",
+            "code": "00-01-month",
+            "display": "00-01-month"
+        },
+        {
+            "system": "RXNORM-FREETEXT",
+            "code": "pramoxine",
+            "display": "pramoxine"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Z00",
+            "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Z00",
+            "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+        }
+    ];
+}
+
+function create3() {
+    return [
+        {
+            "system": "ICD10CM",
+            "code": "N52",
+            "display": "Male erectile dysfunction"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "N14",
+            "display": "Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions"
+        },
+        {
+            "system": "CPT4",
+            "code": "53600",
+            "display": "Dilation of urethral stricture by passage of sound or urethral dilator, male; initial"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "N18",
+            "display": "Chronic kidney disease (CKD)"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "B18",
+            "display": "Chronic viral hepatitis"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Z00",
+            "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "I49",
+            "display": "Other cardiac arrhythmias"
+        },
+        {
+            "system": "timegap",
+            "code": "00-01-month",
+            "display": "00-01-month"
+        },
+        {
+            "system": "RXNORM-FREETEXT",
+            "code": "docusate",
+            "display": "docusate"
+        },
+        {
+            "system": "ICD10CM",
+            "code": "Q23",
+            "display": "Congenital malformations of aortic and mitral valves"
+        }
+    ]
+}
+
+function create() {
+    return [];
 }
 
 function NextButton(id, t1, t2, t3) {
@@ -130,7 +259,7 @@ function NextButton(id, t1, t2, t3) {
     }
 
     let body = {
-        "patientID" : id,
+        "patientId" : id,
         "date" : today,
         "predictions" : preds,
     }
@@ -153,19 +282,25 @@ function NextButton(id, t1, t2, t3) {
     };
 
     const saveTreatment = async(bodyText) => {
-        const response = await fetch("localhost:18000/api/save/save-treatment",{
-            method: 'POST',
-            body: bodyText,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const reply = await response.json();
+        try{
+            const response = await fetch("http://localhost:18000/api/save/save-treatment",{
+                method: 'POST',
+                body: JSON.stringify(bodyText),
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin" : "*",
+                }
+            });
+            const reply = await response.json()
+            console.log(reply)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleAgree = () => {
-        setOpen(false);
         saveTreatment(body);
+        setOpen(false);
         if (disc === ""){
             redirect2()
         } else {
@@ -222,12 +357,10 @@ function Treatment(num, displays) {
     );
 }
 
-
 function PatientTreatment() {
-    const [treatment1, setTreatment1] = useState(createBlankData());
-    const [treatment2, setTreatment2] = useState(createBlankData());
-    const [treatment3, setTreatment3] = useState(createBlankData());
-    const [selection, setSelection] = React.useState(true);
+    const [treatment1, setTreatment1] = useState(create());
+    const [treatment2, setTreatment2] = useState(create());
+    const [treatment3, setTreatment3] = useState(create());
 
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
@@ -237,7 +370,6 @@ function PatientTreatment() {
     }
 
     PatientInfo(patientID)
-
 
     useEffect (() => {
         const treatmentData  = async () => {
@@ -249,146 +381,16 @@ function PatientTreatment() {
                 }
             });
             const treats = await response.json();
-            try { 
+            try {
                 setTreatment1(treats.predictions[0])
                 setTreatment2(treats.predictions[1])
                 setTreatment3(treats.predictions[2])
             } catch (error) {
                 console.log(error)
-                setTreatment1([
-                    {
-                        "system": "RXNORM-FREETEXT",
-                        "code": "acetaminophen",
-                        "display": "acetaminophen"
-                    },
-                    {
-                        "system": "CPT4",
-                        "code": "77052",
-                        "display": "Computer-aided detection (computer algorithm analysis of digital image data for lesion detection) with further review for interpretation, with or without digitization of film radiographic images; screening mammography (List separately in addition to code "
-                    },
-                    {
-                        "system": "ICD10PCS",
-                        "code": "1",
-                        "display": "Obstetrics (Procedure)"
-                    },
-                    {
-                        "system": "ICD10CM",
-                        "code": "Q25",
-                        "display": "Congenital malformations of great arteries"
-                    },
-                    {
-                        "system": "CPT4",
-                        "code": "97003",
-                        "display": "Occupational therapy evaluation"
-                    },
-                    {
-                        "system": "CPT4",
-                        "code": "85018",
-                        "display": "Blood count; hemoglobin (Hgb)"
-                    },
-                    {
-                        "system": "HCPCS",
-                        "code": "H2014",
-                        "display": "Skills training and development, per 15 minutes"
-                    },
-                    {
-                        "system": "timegap",
-                        "code": "00-01-month",
-                        "display": "00-01-month"
-                    }
-                ])
-                setTreatment2([
-                    {
-                        "system": "CPT4",
-                        "code": "52648",
-                        "display": "Laser vaporization of prostate, including control of postoperative bleeding, complete (vasectomy, meatotomy, cystourethroscopy, urethral calibration and/or dilation, internal urethrotomy and transurethral resection of prostate are included if performed)"
-                    },
-                    {
-                        "system": "ICD10CM",
-                        "code": "Z12",
-                        "display": "Encounter for screening for malignant neoplasms"
-                    },
-                    {
-                        "system": "timegap",
-                        "code": "00-01-month",
-                        "display": "00-01-month"
-                    },
-                    {
-                        "system": "RXNORM-FREETEXT",
-                        "code": "pramoxine",
-                        "display": "pramoxine"
-                    },
-                    {
-                        "system": "ICD10CM",
-                        "code": "Z00",
-                        "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
-                    },
-                    {
-                        "system": "ICD10CM",
-                        "code": "Z00",
-                        "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
-                    }
-                ])
-                setTreatment3([
-                        {
-                            "system": "ICD10CM",
-                            "code": "N52",
-                            "display": "Male erectile dysfunction"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "N14",
-                            "display": "Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions"
-                        },
-                        {
-                            "system": "CPT4",
-                            "code": "53600",
-                            "display": "Dilation of urethral stricture by passage of sound or urethral dilator, male; initial"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "N18",
-                            "display": "Chronic kidney disease (CKD)"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "B18",
-                            "display": "Chronic viral hepatitis"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "Z00",
-                            "display": "Encounter for general examination without complaint, suspected or reported diagnosis"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "I49",
-                            "display": "Other cardiac arrhythmias"
-                        },
-                        {
-                            "system": "timegap",
-                            "code": "00-01-month",
-                            "display": "00-01-month"
-                        },
-                        {
-                            "system": "RXNORM-FREETEXT",
-                            "code": "docusate",
-                            "display": "docusate"
-                        },
-                        {
-                            "system": "ICD10CM",
-                            "code": "Q23",
-                            "display": "Congenital malformations of aortic and mitral valves"
-                        }
-                ])
             }
         };
         treatmentData();
     }, []);
-
-    const handleChange = (event) => {
-        setSelection(event.target.checked);
-    };
 
     let t1 = createData(treatment1)
     let t2 = createData(treatment2)
@@ -408,7 +410,6 @@ function PatientTreatment() {
                 {NextButton(patientID, treatment1, treatment1, treatment3)}
                 {/* <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button> */}
             </div>
-
         </div>
     )
 

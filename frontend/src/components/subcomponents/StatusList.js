@@ -14,7 +14,7 @@ Row.propTypes = {
       date: PropTypes.string.isRequired,
       display: PropTypes.string.isRequired,
       class: PropTypes.string.isRequired,
-      statis: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
     }).isRequired,
   };
 
