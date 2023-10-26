@@ -296,16 +296,21 @@ function NextButton(id, t1, t2, t3) {
         } catch (error) {
             console.log(error)
         }
+        handleRedirect()
     }
 
-    const handleAgree = () => {
-        saveTreatment(body);
-        setOpen(false);
+
+    const handleRedirect = () => {
         if (disc === ""){
             redirect2()
         } else {
             redirect1(disc)
         }
+    }
+
+    const handleAgree = () => {
+        saveTreatment(body);
+        setOpen(false);
     }
     
     return (
