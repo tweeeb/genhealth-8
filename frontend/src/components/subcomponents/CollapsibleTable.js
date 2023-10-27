@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import TreatmentList from './TreatmentList';
 
 function createData(date, display, details) {
   return {
@@ -80,22 +81,7 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              {row.details.map((detailsRow => (
-                <div>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Timegap : {detailsRow.timegap}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Symptoms : {detailsRow.symptoms}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Services : {detailsRow.services}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom component="div">
-                    Drugs: {detailsRow.drugs}
-                  </Typography>
-                </div>
-              )))}
+              {TreatmentList(row.details)}
             </Box>
           </Collapse>
         </TableCell>
@@ -106,26 +92,26 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    date: PropTypes.number.isRequired,
-    display: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
     details: PropTypes.arrayOf(
       PropTypes.shape({
-        timegap: PropTypes.number.isRequired,
-        symptoms: PropTypes.string.isRequired,
-        services: PropTypes.string.isRequired,
-        drugs: PropTypes.string.isRequired,
+        timegap: PropTypes.string.isRequired,
+        symptoms: PropTypes.array.isRequired,
+        services: PropTypes.array.isRequired,
+        drugs: PropTypes.array.isRequired,
       }),
     ).isRequired,
   }).isRequired,
 };
 
-const rows = [
-  createData('16-10-2023', createDetails1()[0].symptoms[0], createDetails1()),
-  createData('10-7-2023', createDetails2()[0].symptoms[0], createDetails2()),
-  createData('23-5-2023', createDetails3()[0].symptoms[0], createDetails3())
-];
+// const rows = [
+//   createData('16-10-2023', createDetails1()[0].symptoms[0], createDetails1()),
+//   createData('10-7-2023', createDetails2()[0].symptoms[0], createDetails2()),
+//   createData('23-5-2023', createDetails3()[0].symptoms[0], createDetails3())
+// ];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(data) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -133,12 +119,12 @@ export default function CollapsibleTable() {
           <TableRow>
             <TableCell />
             <TableCell>Date</TableCell>
-            <TableCell align="left">Treatment</TableCell>
+            <TableCell align="left">Sage Support Recommended Care</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.date} row={row} />
+          {data.map((row) => (
+            <Row key={`${row.date}${row.display}`} row={row} />
           ))}
         </TableBody>
       </Table>

@@ -65,6 +65,10 @@ body::before {
     font-size: 100%;
 }
 
+.patientSub {
+    font-size: 80%;
+}
+
 .patientDetail {
     font-size: 65%;
     margin: 5%;

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import "./Landing.css";
-import avatar from './images/Avatar.gif';
+import avatar from './images/doc-square.png';
 
 function Landing() {
   const [doctorName, setDoctorName] = useState('Watson');
@@ -31,19 +31,19 @@ function Landing() {
                       <li><Link to="/profile" id="profile">Profile</Link></li>
                       <li><Link to="/aboutUs" id="aboutUs">About Us</Link></li>
                   </ul>
-                  <span className="label">DIGIHEALTH</span>
+                  <span className="label">SageSupport</span>
                   <button id="toggleLandingSidebar" onClick={toggleLandingSidebar}></button>
               </div>
           ) : (
               <div className="blankLandingSidebar" id="blankLandingSidebar">
-                  <span className="label">DIGIHEALTH</span>
+                  <span className="label">SageSupport</span>
                   <button id="expandLandingSidebar" onClick={expandLandingSidebar}></button>
               </div>
           )}
 
           <div id="greeting" style={{ left: greetingPosition }}>
               <h1>Hi Doctor <span id="doctorName">{doctorName}</span>,</h1>
-              <h1>Welcome to DIGIHEALTH</h1>
+              <h1>Welcome to SageSupport</h1>
           </div>
           <button className="newTreatmentButton" onClick={() => window.location.href='/FindPatient'}>Start New Treatment</button>
 

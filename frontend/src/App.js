@@ -15,7 +15,7 @@ function App() {
                <Route path="/patientRecord/:id" element={<PatientRecord/>} />
                <Route path="/patientTreatment/:id" element={<PatientTreatment/>} />
                <Route path="/FindPatient" element={<FindPatient />} />
-               <Route path="/discardTreatment/:id" element={<DiscardTreatment/>} />
+               <Route path="/discardTreatment/:id/:vals" element={<DiscardTreatment/>} />
             </Routes>
         </Router>
     );
