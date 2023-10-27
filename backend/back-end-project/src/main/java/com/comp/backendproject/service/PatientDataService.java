@@ -12,4 +12,13 @@ public interface PatientDataService {
 
     @Resource
     Object getOnePatientData(String id);
+
+    @Resource
+    Object getConditionData(String id);
+
+    @Resource
+    Object getMedicationsData(String id);
+
+    @Resource
+    Object getLaboratoryTests(String id);
 }

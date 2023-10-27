@@ -26,4 +26,22 @@ public class PatientDataController {
         return patientDataService.getOnePatientData(id);
     }
 
+    @GetMapping("/condition/{id}")
+    public Object getConditionData(@PathVariable String id) {
+
+        return patientDataService.getConditionData(id);
+    }
+
+    @GetMapping("/medication/{id}")
+    public Object getMedicationData(@PathVariable String id) {
+
+        return patientDataService.getMedicationsData(id);
+    }
+
+    @GetMapping("/test-result/{id}")
+    public Object getTestResultData(@PathVariable String id) {
+
+        return patientDataService.getLaboratoryTests(id);
+    }
+
 }
