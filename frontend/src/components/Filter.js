@@ -37,7 +37,7 @@ const Filter = ({ onFilterSubmit }) => {
     const valuesArray = patientsData[dataName]?.value;
     if (valuesArray && Array.isArray(valuesArray)) {
       const minValue = Math.min(...valuesArray.map(item => parseFloat(item[0].value)));
-      setMinValueSuggestion(minValue.toString()); 
+      setMinValueSuggestion(Math.round(minValue).toString());  // Rounding the value
     } else {
       setMinValueSuggestion('');
     }
@@ -52,7 +52,7 @@ const Filter = ({ onFilterSubmit }) => {
     const valuesArray = patientsData[dataName]?.value;
     if (valuesArray && Array.isArray(valuesArray)) {
       const maxValue = Math.max(...valuesArray.map(item => parseFloat(item[0].value)));
-      setMaxValueSuggestion(maxValue.toString()); 
+      setMaxValueSuggestion(Math.round(maxValue).toString());  // Rounding the value
     } else {
       setMaxValueSuggestion('');
     }
