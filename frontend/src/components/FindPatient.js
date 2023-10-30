@@ -52,13 +52,15 @@ const FindPatient = () => {
     const valuesArray = patientsData[dataNameInput]?.value;
     if (valuesArray) {
       for (const item of valuesArray) {
-        const value = item[0].value;
-        if (
-          (!minDataValueInput || value >= parseFloat(minDataValueInput)) &&
-          (!maxDataValueInput || value <= parseFloat(maxDataValueInput))
-        ) {
-          matchedPatientIds.push(item[1].split('/')[1]);
-          matchedPatientDataValues.push(item[0].value.toFixed(2)); // 保存两位小数的值
+        if (Array.isArray(item) && item[0] && typeof item[0].value !== 'undefined') {
+          const value = item[0].value;
+          if (
+            (!minDataValueInput || value >= parseFloat(minDataValueInput)) &&
+            (!maxDataValueInput || value <= parseFloat(maxDataValueInput))
+          ) {
+            matchedPatientIds.push(item[1].split('/')[1]);
+            matchedPatientDataValues.push(item[0].value.toFixed(2)); 
+          }
         }
       }
     }
