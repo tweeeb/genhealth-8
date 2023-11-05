@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  frontend:
+    platform: linux/amd64
+    image: chijian666/frontend:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    platform: linux/amd64
+    image: chijian666/backend:latest
+    ports:
+      - "18000:18000"
+
