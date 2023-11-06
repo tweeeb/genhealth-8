@@ -412,7 +412,7 @@ function PatientTreatment() {
                     {Treatment(2, t2)}
                     {Treatment(3, t3)}
                 </div>
-                {NextButton(patientID, treatment1, treatment1, treatment3)}
+                {NextButton(patientID, treatment1, treatment2, treatment3)}
                 {/* <Button id="fixed-button"  size="large" onClick={(e) => checkChecks(patientID, treatment1, treatment1, treatment3)} component={Link} to={`/DiscardTreatment/:${patientID}`} variant="contained">Next</Button> */}
             </div>
         </div>
