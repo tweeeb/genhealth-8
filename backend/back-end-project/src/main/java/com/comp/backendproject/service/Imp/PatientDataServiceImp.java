@@ -53,4 +53,29 @@ public class PatientDataServiceImp implements PatientDataService {
         PatientEntity responseBody = responseEntity.getBody();
         return responseBody;
     }
+
+    @Override
+    public Object getConditionData(String id) {
+        String url = DataSource.FHIR_URL + "/Condition?patient=" + id;
+        ResponseEntity<Object> responseEntity = restTemplate.getForEntity(url, Object.class);
+        Object responseBody = responseEntity.getBody();
+        return responseBody;
+    }
+
+    @Override
+    public Object getMedicationsData(String id) {
+        String url = DataSource.FHIR_URL + "/MedicationRequest?patient=" + id;
+        ResponseEntity<Object> responseEntity = restTemplate.getForEntity(url,Object.class);
+        Object responseBody = responseEntity.getBody();
+        return responseBody;
+
+    }
+
+    @Override
+    public Object getLaboratoryTests(String id) {
+        String url = DataSource.FHIR_URL + "/DiagnosticReport?patient=" + id;
+        ResponseEntity<Object> responseEntity = restTemplate.getForEntity(url, Object.class);
+        Object responseBody = responseEntity.getBody();
+        return responseBody;
+    }
 }

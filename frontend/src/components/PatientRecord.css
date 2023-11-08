@@ -42,7 +42,7 @@ body::before {
     z-index: 9911;  /* Ensure it's above other elements */
 }
 
-#patient-details {
+#data {
     position: absolute;
     color: rgb(54, 100, 184);
     top: 10%;
@@ -51,8 +51,22 @@ body::before {
     width: 80%;
 }
 
+
+#s1 {
+    float: left;
+}
+
+#s2 {
+    float: right;
+    padding-top: 20px;
+}
+
 .patientHeader {
     font-size: 100%;
+}
+
+.patientSub {
+    font-size: 80%;
 }
 
 .patientDetail {

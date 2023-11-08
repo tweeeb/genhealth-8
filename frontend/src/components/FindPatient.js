@@ -1,9 +1,14 @@
+// src/components/FindPatient.js
+
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import Filter from './Filter';
 import './FindPatient.css';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 function TopBar() {
-  return <div className="top-bar">DIGIHEALTH</div>;
+  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
 const FindPatient = () => {
@@ -47,13 +52,15 @@ const FindPatient = () => {
     const valuesArray = patientsData[dataNameInput]?.value;
     if (valuesArray) {
       for (const item of valuesArray) {
-        const value = item[0].value;
-        if (
-          (!minDataValueInput || value >= parseFloat(minDataValueInput)) &&
-          (!maxDataValueInput || value <= parseFloat(maxDataValueInput))
-        ) {
-          matchedPatientIds.push(item[1].split('/')[1]);
-          matchedPatientDataValues.push(item[0].value.toFixed(2)); // 保存两位小数的值
+        if (Array.isArray(item) && item[0] && typeof item[0].value !== 'undefined') {
+          const value = item[0].value;
+          if (
+            (!minDataValueInput || value >= parseFloat(minDataValueInput)) &&
+            (!maxDataValueInput || value <= parseFloat(maxDataValueInput))
+          ) {
+            matchedPatientIds.push(item[1].split('/')[1]);
+            matchedPatientDataValues.push(item[0].value.toFixed(2)); 
+          }
         }
       }
     }
@@ -185,8 +192,10 @@ const FindPatient = () => {
                           </div>
                       ))}
                   </div>
-                  <button className="savePatientsButton" onClick={handleSavePatients}>SAVE</button>
-                  <button className="patientTreatment" onClick={() => window.location.href='/Treatment'}>NEXT</button>
+                  <Button id="fixed-button-1"  size="large" variant="contained"  onClick={handleSavePatients}>SAVE</Button>
+                  {/* <button className="savePatientsButton" onClick={handleSavePatients}>SAVE</button> */}
+                  <Button id="fixed-button-2"  size="large" variant="contained"  component={Link} to={'/PatientList'}>NEXT</Button>
+                  {/* <button className="patientTreatment" onClick={() => window.location.href='/PatientList'}>NEXT</button> */}
               </>
           ) : (
               <>

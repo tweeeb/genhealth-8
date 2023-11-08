@@ -3,10 +3,10 @@
 body {
     position: relative;
     font-family: "argumentum",sans-serif;
-    margin: 0; /* Remove default body margin */
-    height: 100vh; /* Set body to full viewport height */
-    display: flex; /* Use flexbox for centering */
-    flex-direction: column; /* Align elements vertically */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
     justify-content: center; 
     align-items: center;
 }
@@ -146,3 +146,19 @@ body {
   margin-right: 10%;
 }
 
+
+#fixed-button-1 {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 30px;
+  margin-right: 150px;
+}
+
+#fixed-button-2 {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 30px;
+  margin-right: 30px;
+}

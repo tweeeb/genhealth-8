@@ -1,11 +1,19 @@
 // src/components/PatientList.js
 
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import './PatientList.css';
 import Search from './images/search icon.png'
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 function TopBar() {
-    return <div className="top-bar">DIGIHEALTH</div>;
+  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
 function Sidebar() {
@@ -21,7 +29,7 @@ function Sidebar() {
     );
 }
 
-const PatientListContent = () => {
+function PatientListContent() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -54,39 +62,29 @@ const PatientListContent = () => {
     fetchAllPatients();
   }, []);
 
-
-  const renderPatientName = (patient) => {
-    const fullNames = patient.name.map(n => `${n.prefix[0]} ${n.given.join(' ')} ${n.family}`).join(', ');
-
-    const age = new Date().getFullYear() - new Date(patient.birthDate).getFullYear();
-
-    return (
-      <>
-          {fullNames}
-          <span className="spacing"></span>
-          Age: {age} yrs
-          <span className="spacing"></span>
-          {patient.dataName}: {patient.dataValue} {patient.unit}
-      </>
-    );
-  };
+  console.log(patients)
 
   return (
-    <div className="patient-list-content">
-      {patients.map(patient => (
-        <div className="patient-item" key={patient.id}>
-            <div className="patient-info">
-                {renderPatientName(patient)}
-            </div>
-            <span>ID: {patient.id}</span>
-        </div>
-      ))}
+    <div>
+      <Box sx={{ width: '100%', bgcolor: 'background.paper'}} id="content">
+        <List component="nav" aria-label="secondary mailbox folder">
+          {patients.map((patient) => (
+            <React.Fragment key={patient.id}>
+              <ListItemButton component={Link} to={`/patientRecord/:${patient.id}`}>
+            <ListItemText primary={(patient.name.map(n => `${n.prefix[0]} ${n.given.join(' ')} ${n.family}`).join(', ')).split(",")[0]} 
+              secondary={"Age : " + (new Date().getFullYear() - new Date(patient.birthDate).getFullYear())}>
+            </ListItemText>
+            <Typography variant="body1" edge="end" tabIndex={-1} float="right">
+                id : {patient.id}
+            </Typography>
+            </ListItemButton>
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
     </div>
   );
 };
-
-
-  
 
 
 function AddPatientButton() {
@@ -98,11 +96,19 @@ function PatientList() {
         <div>
             <TopBar />
             <Sidebar />
-            <h1 id="patientList">
-                Patient List
-            </h1>
-            <AddPatientButton />
-            <PatientListContent />
+              <div id="box">
+                <div>
+                  <div id="headers">
+                    <h1 id="patientList"> Patient List</h1> 
+                    <IconButton id="n" component={Link} to={`/FindPatient`}>
+                      <AddCircleOutlineIcon></AddCircleOutlineIcon>
+                    </IconButton>
+                  </div>
+                  <div id="list">
+                    <PatientListContent />
+                  </div>
+                </div>
+              </div>
         </div>
     );
 }
