@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import Filter from './Filter';
+import Filter from './subcomponents/Filter';
 import './FindPatient.css';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';

@@ -2,7 +2,7 @@
 
 body {
     font-family: "argumentum", sans-serif !important;
-    background-image: url('background.jpeg');
+    background-image: url('./images/background.jpeg');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-attachment: fixed; 
@@ -56,7 +56,7 @@ body {
 /* Style for the Landingsidebar */
 .Landingsidebar {
     width: 18%; /* Set the width of the Landingsidebar */
-    background-image: url('sidebar.jpeg');
+    background-image: url('./images/sidebar.jpeg');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-attachment: fixed; 
@@ -128,7 +128,7 @@ body {
 
 .blankLandingSidebar {
     width: 60px; 
-    background-image: url('sidebar.jpeg'); 
+    background-image: url('./images/sidebar.jpeg'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

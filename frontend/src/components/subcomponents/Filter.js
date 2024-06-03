@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Filter.css';
-import Search from './images/search icon.png';
+import Search from '../images/search icon.png';
 
 const Filter = ({ onFilterSubmit }) => {
   const [dataName, setDataName] = useState('');
