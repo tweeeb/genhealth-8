@@ -119,10 +119,6 @@ const FindPatient = (setpatients) => {
           checkbox.checked = selectAll;
       });
   }, [selectAll]);
-
-
-
-
   
   async function handleSavePatients() {
     // 获取所有的checkbox

@@ -29,14 +29,13 @@ function Sidebar() {
     );
 }
 
-function PatientListContent(pats) {
+function PatientListContent(patientIDs) {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
     async function fetchAllPatients() {
       try {
-        const response = await fetch('http://localhost:18000/api/save/get-all-patient');
-        const patientIds = await response.json();
+        const patientIds = patientIDs
         const allPatients = await Promise.all(patientIds.map(({ patientId }) => fetchOnePatient(patientId)));
         setPatients(allPatients);
       } catch (error) {
@@ -105,7 +104,7 @@ function PatientList(patients) {
                     </IconButton>
                   </div>
                   <div id="list">
-                    <PatientListContent pats={patients}/>
+                    <PatientListContent patientIDs={patients}/>
                   </div>
                 </div>
               </div>
