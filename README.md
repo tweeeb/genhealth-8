@@ -22,11 +22,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Running on Localhost
 
-### Prerequisites
-- Java 8
-
 ### Backend setup
-SageSupport requires a Java backend to process data from GenHealth.
+SageSupport requires a Java 8 backend to process data from GenHealth.
 
 In a terminal, access the backend folder
 
