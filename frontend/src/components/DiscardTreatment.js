@@ -33,7 +33,7 @@ function Treatment(num, val) {
     );
 }
 
-function DiscardTreatment() {
+function DiscardTreatment(settreatments) {
     const {id, vals} = useParams()
     let patientID = id.substring(1 , id.length);
     let treatments = vals.substring(1 , vals.length).split("");

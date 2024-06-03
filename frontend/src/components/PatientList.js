@@ -29,7 +29,7 @@ function Sidebar() {
     );
 }
 
-function PatientListContent() {
+function PatientListContent(pats) {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ function AddPatientButton() {
     return <button className="add-patient-button" onClick={() => window.location.href='/FindPatient'}>+</button>;
 }
 
-function PatientList() {
+function PatientList(patients) {
     return (
         <div>
             <TopBar />
@@ -105,7 +105,7 @@ function PatientList() {
                     </IconButton>
                   </div>
                   <div id="list">
-                    <PatientListContent />
+                    <PatientListContent pats={patients}/>
                   </div>
                 </div>
               </div>

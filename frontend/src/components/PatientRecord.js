@@ -196,7 +196,7 @@ function PatientHistory(patientID) {
 }
 
 
-function PatientRecord() {
+function PatientRecord(treatments) {
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
     let patientName;

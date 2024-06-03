@@ -11,7 +11,7 @@ function TopBar() {
   return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
 }
 
-const FindPatient = () => {
+const FindPatient = (setpatients) => {
   const [patientsData, setPatientsData] = useState([]);
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -142,6 +142,7 @@ const FindPatient = () => {
         return;
     }
 
+    /* TODO: ? */
     // 对于每个选中的患者ID，发送到后端
     for (const id of selectedPatientIds) {
         try {
