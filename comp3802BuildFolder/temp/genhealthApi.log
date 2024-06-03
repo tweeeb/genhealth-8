@@ -23458,3 +23458,243 @@ Caused by: javax.naming.NameNotFoundException: DNS name not found [response code
 	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
 	... 3 common frames omitted
 
+2024-06-03 15:30:59.038  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:09.099  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:19.141  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:29.192  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:39.233  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:49.410  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:31:59.461  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:32:09.518  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:32:19.580  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
+2024-06-03 15:32:29.623  INFO 14244 --- [cluster-ClusterId{value='665d32639036b8515222d9e7', description='null'}-srv-cluster0.m5swobe.mongodb.net] org.mongodb.driver.cluster               : Exception while resolving SRV records
+
+com.mongodb.MongoConfigurationException: Failed looking up SRV record for '_mongodb._tcp.cluster0.m5swobe.mongodb.net'.
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:92) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:80) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.mongodb.spi.dns.DnsWithResponseCodeException: DNS name not found [response code 3]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:52) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	at com.mongodb.internal.dns.DefaultDnsResolver.resolveHostFromSrvRecords(DefaultDnsResolver.java:74) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 2 common frames omitted
+Caused by: javax.naming.NameNotFoundException: DNS name not found [response code 3]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.checkResponseCode(DnsClient.java:659) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.isMatchResponse(DnsClient.java:577) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.doUdpQuery(DnsClient.java:429) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsClient.query(DnsClient.java:214) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.Resolver.query(Resolver.java:81) ~[jdk.naming.dns:na]
+	at jdk.naming.dns/com.sun.jndi.dns.DnsContext.c_getAttributes(DnsContext.java:434) ~[jdk.naming.dns:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.ComponentDirContext.p_getAttributes(ComponentDirContext.java:235) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:141) ~[na:na]
+	at java.naming/com.sun.jndi.toolkit.ctx.PartialCompositeDirContext.getAttributes(PartialCompositeDirContext.java:129) ~[na:na]
+	at java.naming/javax.naming.directory.InitialDirContext.getAttributes(InitialDirContext.java:171) ~[na:na]
+	at com.mongodb.internal.dns.JndiDnsClient.getResourceRecordData(JndiDnsClient.java:41) ~[mongodb-driver-core-4.6.1.jar!/:na]
+	... 3 common frames omitted
+
