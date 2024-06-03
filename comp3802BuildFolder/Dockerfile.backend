@@ -1,7 +1,0 @@
-# 使用Java 8镜像
-FROM openjdk:8-jre-alpine as backend
-FROM --platform=linux/amd64 ubuntu:20.04
-WORKDIR /app
-COPY ./back-end-project-0.0.1-SNAPSHOT.jar /app/
-EXPOSE 18000 
-CMD ["java", "-jar", "back-end-project-0.0.1-SNAPSHOT.jar"]
