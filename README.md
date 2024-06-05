@@ -8,17 +8,17 @@ By using GenHealth, we can cover all patient history quickly, and mitigate human
 
 For the purposes of this demo project, we use synthetic patient data. <br>
 
-## Getting Started <a name = "getting_started"></a>
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
-
-### Running on SMART Launcher
+## Running on SMART Launcher
 
 1. Open [Smart launcher](https://launch.smarthealthit.org/) 
 
 2. Select the Launcher type as BackEnd Service, like the picture below, and going into Client Registration & Validation page to config your own client ID and Scope(the only allowed scope is system/*.read) like the second picture.
 
 3. Copy the Server's FHIR Base URL in the second image
+
+## Getting Started <a name = "getting_started"></a>
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Running on Localhost
 
