@@ -6,12 +6,20 @@ import Filter from './subcomponents/Filter';
 import './FindPatient.css';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { lighten } from '@mui/material';
+import TopBar from './subcomponents/TopBar';
 
-function TopBar() {
-  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
+function contains(a, obj) {
+  let i = a.length;
+  while (i--) {
+     if (a[i] === obj) {
+         return true;
+     }
+  }
+  return false;
 }
 
-const FindPatient = (setpatients) => {
+const FindPatient = () => {
   const [patientsData, setPatientsData] = useState([]);
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -138,35 +146,19 @@ const FindPatient = (setpatients) => {
         return;
     }
 
-    /* TODO: ? */
-    // 对于每个选中的患者ID，发送到后端
+    console.log(localStorage.getItem("patientList"))
+    //setpatients(patients.append)
     for (const id of selectedPatientIds) {
-        try {
-            const response = await fetch('http://localhost:18000/api/save/save-patient', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ patientId: id })
-            });
-            
-            if (!response.ok) {
-                console.error('Error saving patient ID:', id, 'Error:', await response.text());
-                alert("Error saving selected patients.");
-                return; // 如果保存某个患者时出现错误，则提前终止操作
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert("Error saving selected patients.");
-            return; // 如果出现错误，则提前终止操作
+        // check no doubles
+        if (!contains(id, localStorage.getItem("patientList"))) {
+          let tmpList = localStorage.getItem("patientList").push(id)
+          localStorage.setItem("patientList", tmpList)
         }
     }
-
     alert("Patients saved successfully."); // 只有在所有患者ID都保存成功后才显示此消息
   }
 
-
-
+  console.log(localStorage.getItem("patientList"))
   
   return (
       <div className="find-patient-container">

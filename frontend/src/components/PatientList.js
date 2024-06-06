@@ -11,10 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-function TopBar() {
-  return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
-}
+import TopBar from './subcomponents/TopBar';
 
 function Sidebar() {
     return (
@@ -29,13 +26,13 @@ function Sidebar() {
     );
 }
 
-function PatientListContent(patientIDs) {
+function PatientListContent() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
     async function fetchAllPatients() {
       try {
-        const patientIds = patientIDs
+        const patientIds = localStorage.getItem("patientList")
         const allPatients = await Promise.all(patientIds.map(({ patientId }) => fetchOnePatient(patientId)));
         setPatients(allPatients);
       } catch (error) {
@@ -90,7 +87,7 @@ function AddPatientButton() {
     return <button className="add-patient-button" onClick={() => window.location.href='/FindPatient'}>+</button>;
 }
 
-function PatientList(patients) {
+function PatientList() {
     return (
         <div>
             <TopBar />
@@ -104,7 +101,7 @@ function PatientList(patients) {
                     </IconButton>
                   </div>
                   <div id="list">
-                    <PatientListContent patientIDs={patients}/>
+                    <PatientListContent/>
                   </div>
                 </div>
               </div>

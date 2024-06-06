@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { Link , useParams} from 'react-router-dom';
 import "./PatientTreatment.css";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-
-function TopBar() {
-    return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
-}
+import TopBar from './subcomponents/TopBar'
 
 function Treatment(num, val) {
     const [checked, setChecked] = React.useState(true);
@@ -33,7 +27,7 @@ function Treatment(num, val) {
     );
 }
 
-function DiscardTreatment(settreatments) {
+function DiscardTreatment() {
     const {id, vals} = useParams()
     let patientID = id.substring(1 , id.length);
     let treatments = vals.substring(1 , vals.length).split("");

@@ -5,17 +5,14 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import "./PatientRecord.css";
 import IconButton from '@mui/material/IconButton';
 import StatusList from "./subcomponents/StatusList";
-
-function TopBar() {
-    return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
-}
+import TopBar from "./subcomponents/TopBar";
 
 function getAge(dateString) 
 {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
+    let today = new Date();
+    let birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
     {
         age--;
@@ -65,7 +62,7 @@ function createData(json) {
     let drugs = []
 
     for (let i = 0; i < json.length; i++) {
-        var component = json[i]
+        let component = json[i]
         if (component.system === "timegap") {
             timegap = component.display
         } else if (component.system === "ICD10CM") {
@@ -196,7 +193,7 @@ function PatientHistory(patientID) {
 }
 
 
-function PatientRecord(treatments) {
+function PatientRecord() {
     const {id} = useParams()
     let patientID = id.substring(1 , id.length);
     let patientName;

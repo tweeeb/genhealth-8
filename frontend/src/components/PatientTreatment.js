@@ -1,29 +1,17 @@
 import React, {useEffect, useState} from "react";
 import { useParams} from 'react-router-dom';
 import "./PatientTreatment.css";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-import PropTypes from 'prop-types';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TreatmentList from "./subcomponents/TreatmentList";
-
-function TopBar() {
-    return <div className="top-bar" onClick={() => window.location.href='/'}>SAGESUPPORT</div>;
-}
+import TopBar from "./subcomponents/TopBar";
 
 
 function ProcessPatient(data) {
