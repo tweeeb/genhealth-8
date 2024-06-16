@@ -7,8 +7,10 @@ import FindPatient from './components/FindPatient';
 import DiscardTreatment from './components/DiscardTreatment';
 
 function App() {
-    localStorage.setItem("patientList", new Array())
-    localStorage.setItem("treatemntDict", {})
+    let ids = []
+    let treaments = {}
+    localStorage.setItem("patientList", JSON.stringify(ids))
+    localStorage.setItem("treatemntDict", JSON.stringify(treaments))
 
     return (
         <Router>

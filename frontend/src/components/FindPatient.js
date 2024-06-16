@@ -5,19 +5,7 @@ import {Link} from 'react-router-dom';
 import Filter from './subcomponents/Filter';
 import './FindPatient.css';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { lighten } from '@mui/material';
 import TopBar from './subcomponents/TopBar';
-
-function contains(a, obj) {
-  let i = a.length;
-  while (i--) {
-     if (a[i] === obj) {
-         return true;
-     }
-  }
-  return false;
-}
 
 const FindPatient = () => {
   const [patientsData, setPatientsData] = useState([]);
@@ -112,11 +100,7 @@ const FindPatient = () => {
     );
   };
 
-
-
-
   const [selectAll, setSelectAll] = useState(false);
-
   const handleSelectAllChange = () => {
       setSelectAll(prev => !prev);
   }
@@ -145,20 +129,23 @@ const FindPatient = () => {
         alert("Please select at least one patient.");
         return;
     }
-
-    console.log(localStorage.getItem("patientList"))
-    //setpatients(patients.append)
-    for (const id of selectedPatientIds) {
-        // check no doubles
-        if (!contains(id, localStorage.getItem("patientList"))) {
-          let tmpList = localStorage.getItem("patientList").push(id)
-          localStorage.setItem("patientList", tmpList)
+    //get current saved patients.
+    let existingPatients = JSON.parse(localStorage.getItem("patientList"))
+    console.log(existingPatients)
+    if (existingPatients.length === 0) {
+      // directly paste in
+      localStorage.setItem("patientList", JSON.stringify(selectedPatientIds))
+    } else {
+      for (const id of selectedPatientIds) {
+      // check no doubles
+        if (!existingPatients.includes(id)) {
+          existingPatients.push(id)
         }
+      }
+      localStorage.setItem("patientList", JSON.stringify(existingPatients))
     }
     alert("Patients saved successfully."); // 只有在所有患者ID都保存成功后才显示此消息
   }
-
-  console.log(localStorage.getItem("patientList"))
   
   return (
       <div className="find-patient-container">
